@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alp Aviation English — Lesson 4</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf8f5;
+    --bg-mid: #f5ede6;
+    --bg-light: #ece0d8;
+    --accent: #e8714a;
+    --accent-light: #f5a07a;
+    --amber: #f0b840;
+    --white: #261a14;
+    --muted: #7a5040;
+    --correct: #5ecb7a;
+    --wrong: #e05555;
+    --card: rgba(255,255,255,0.9);
+    --border: rgba(200,90,55,0.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 40% at 50% -20%, rgba(232,113,74,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 30% at 80% 100%, rgba(240,184,64,0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lesson-header { text-align: center; padding: 3rem 0 2rem; }
+
+  .lesson-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 span { color: var(--accent); }
+  .lesson-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+  .divider {
+    display: flex; align-items: center; gap: 1rem; justify-content: center;
+    color: var(--muted); font-size: 1.2rem; margin: 0.5rem 0;
+  }
+
+  .divider::before, .divider::after {
+    content: ''; flex: 1; max-width: 100px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .progress-wrap {
+    background: var(--border); border-radius: 10px; height: 5px;
+    margin: 1.5rem 0 2.5rem; overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 10px; transition: width 0.5s ease;
+  }
+
+  .section {
+    background: #ffffff; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
+  }
+
+  .section-num {
+    background: var(--accent); color: var(--bg);
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.8rem;
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .section-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.1rem; }
+  .section-desc { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+
+  .time-tag {
+    margin-left: auto; flex-shrink: 0;
+    background: rgba(46,160,90,0.08); border: 1px solid rgba(232,113,74,0.25);
+    color: var(--accent-light); font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 20px;
+  }
+
+  .teacher-note {
+    background: rgba(200,140,30,0.06); border: 1px solid rgba(255,179,71,0.2);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 10px 10px 0; padding: 0.8rem 1rem;
+    margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--muted);
+  }
+  .teacher-note strong { color: var(--amber); }
+
+  /* --- MATCHING HALVES --- */
+  .match-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 560px) { .match-container { grid-template-columns: 1fr; } }
+
+  .match-col-title {
+    font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;
+  }
+
+  .match-item {
+    background: var(--bg-mid); border: 2px solid var(--border);
+    border-radius: 10px; padding: 0.8rem 1rem;
+    font-size: 0.9rem; cursor: pointer;
+    transition: all 0.2s; line-height: 1.4; margin-bottom: 0.6rem;
+  }
+
+  .match-item:hover { border-color: var(--accent); background: rgba(200,90,55,0.05); }
+  .match-item.selected { border-color: var(--accent); background: rgba(200,90,55,0.08); }
+  .match-item.matched { border-color: var(--correct); background: rgba(46,160,90,0.08); cursor: default; }
+  .match-item.wrong-flash { border-color: var(--wrong); background: rgba(200,60,60,0.07); }
+
+  .match-result {
+    font-size: 0.85rem; color: var(--muted); margin-top: 1rem; font-style: italic;
+  }
+
+  .match-score {
+    display: none; text-align: center; padding: 1rem;
+    background: rgba(46,160,90,0.08); border: 1px solid rgba(94,203,122,0.2);
+    border-radius: 10px; margin-top: 1rem;
+  }
+
+  .match-score.show { display: block; }
+  .match-score-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); }
+
+  /* --- SENTENCE BUILDER --- */
+  .build-item { margin-bottom: 2rem; }
+
+  .build-prompt {
+    background: var(--bg-mid); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.2rem;
+    font-size: 0.92rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.6;
+  }
+
+  .build-prompt strong { color: var(--white); }
+
+  .build-textarea {
+    width: 100%; background: transparent;
+    border: 2px solid var(--border); border-radius: 10px;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 300; padding: 0.8rem 1rem;
+    outline: none; resize: vertical; min-height: 70px;
+    transition: border-color 0.2s;
+  }
+
+  .build-textarea:focus { border-color: var(--accent); }
+  .build-textarea.has-content { border-color: rgba(232,113,74,0.4); }
+
+  .build-example {
+    display: none; font-size: 0.85rem; color: var(--accent);
+    margin-top: 0.5rem; padding: 0.5rem 0.8rem;
+    background: rgba(46,160,90,0.07); border-radius: 6px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .build-example.show { display: block; }
+
+  /* --- YES/NO vs WH- QUESTIONS DRILL --- */
+  .question-drill { display: flex; flex-direction: column; gap: 1rem; }
+
+  .drill-item {
+    background: var(--bg-mid); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.2rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+
+  .drill-statement { font-size: 0.9rem; color: var(--muted); }
+  .drill-statement strong { color: var(--white); }
+
+  .drill-options { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  .drill-btn {
+    background: var(--bg); border: 2px solid var(--border);
+    color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+  }
+
+  .drill-btn:hover { border-color: var(--accent); color: var(--white); }
+  .drill-btn.correct-choice { border-color: var(--correct); background: rgba(94,203,122,0.1); color: var(--correct); }
+  .drill-btn.wrong-choice { border-color: var(--wrong); background: rgba(200,60,60,0.07); color: var(--wrong); }
+  .drill-btn.disabled { pointer-events: none; }
+
+  .drill-feedback { font-size: 0.82rem; color: var(--muted); display: none; }
+  .drill-feedback.show { display: block; }
+  .drill-feedback.ok { color: var(--correct); }
+  .drill-feedback.no { color: var(--wrong); }
+
+  /* --- CONVERSATION GAME --- */
+  .conv-intro {
+    font-size: 0.92rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.6;
+  }
+
+  .conv-card-wrap { perspective: 800px; }
+
+  .conv-card {
+    background: linear-gradient(135deg, var(--bg-light), var(--bg-mid));
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    min-height: 180px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1rem;
+    cursor: pointer; transition: transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+
+  .conv-card:hover { transform: scale(1.01); }
+
+  .conv-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(46,160,90,0.05) 0%, transparent 70%);
+  }
+
+  .conv-card-icon { font-size: 2.5rem; }
+  .conv-card-text {
+    font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 600;
+    color: var(--white); line-height: 1.4; position: relative;
+  }
+
+  .conv-card-sub { font-size: 0.82rem; color: var(--accent); position: relative; }
+
+  .conv-nav { display: flex; gap: 0.8rem; margin-top: 1rem; justify-content: center; }
+
+  .btn {
+    background: var(--accent); color: var(--bg);
+    border: none; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.05em; padding: 0.65rem 1.6rem; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s;
+  }
+
+  .btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent; color: var(--muted); border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; padding: 0.55rem 1.2rem;
+    border-radius: 8px; cursor: pointer; transition: all 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--muted); color: var(--white); }
+
+  .counter-display {
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; color: var(--muted);
+    text-align: center; margin-top: 0.8rem;
+  }
+
+  /* ---- BILINGUAL GRAMMAR NOTES ---- */
+  .grammar-note {
+    background: rgba(200,90,55,0.06);
+    border: 1px solid rgba(232,113,74,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .grammar-note-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .grammar-note-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(232,113,74,0.2);
+  }
+  .gn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.4rem;
+    margin-bottom: 0.6rem;
+    align-items: start;
+  }
+  @media (max-width: 540px) { .gn-row { grid-template-columns: 1fr; } }
+  .gn-en { font-size: 0.88rem; color: var(--white); line-height: 1.6; }
+  .gn-tr { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-style: italic; }
+  .gn-rule {
+    font-size: 0.82rem;
+    color: var(--accent-light);
+    margin-top: 0.6rem;
+    padding: 0.45rem 0.9rem;
+    background: rgba(200,90,55,0.06);
+    border-radius: 6px;
+    line-height: 1.55;
+  }
+
+  .lesson-end { text-align: center; padding: 2.5rem 1rem; }
+  .lesson-end h2 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .lesson-end h2 span { color: var(--accent); }
+  .lesson-end p { color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="lesson-header">
+    <div class="lesson-badge">✈ Alp Aviation English</div>
+    <h1>Lesson 4 — <span>Sentences</span><br>Come Alive!</h1>
+
+    <div class="divider">✦</div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-fill" id="prog"></div></div>
+
+  <!-- =================== ACTIVITY 1: MATCHING HALVES =================== -->
+  <div class="section" style="animation-delay:0.05s">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">Matching Halves — Connect the Sentence</div>
+        <div class="section-desc">Click a sentence beginning, then click its correct ending.</div>
+      </div>
+      <div class="time-tag">⏱ 10 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">A complete sentence needs a <strong>subject</strong> and a <strong>verb</strong>. The two halves must make grammatical sense together — check the verb form and meaning carefully.</div>
+        <div class="gn-tr">Tam bir cümlenin <strong>özne</strong> ve <strong>fiil</strong> içermesi gerekir. İki parça birlikte dilbilgisel açıdan doğru olmalıdır — fiil biçimini ve anlamını dikkatlice kontrol edin.</div>
+      </div>
+      <div class="gn-row">
+        <div class="gn-en">✅ <em>The captain always</em> + <em>arrives at the hangar first.</em><br>(He/She/It → arrives ✓)</div>
+        <div class="gn-tr">✅ Kaptan + hangara ilk varır.<br>(He/She/It → arrives — fiile -s eklenir ✓)</div>
+      </div>
+      <div class="gn-rule">⚠️ Watch out for he/she/it verbs — they need -s! Also check: does the ending make logical sense? / He/She/It fiilleri -s alır! Ayrıca: son kısım mantıklı mı?</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> Read the beginnings aloud as a group first, and predict the endings together before clicking. Great for discussion!</div>
+
+    <div class="match-container">
+      <div>
+        <div class="match-col-title">▶ Beginning</div>
+        <div class="match-item" id="b1" onclick="selectMatch('b','1')">The captain always</div>
+        <div class="match-item" id="b2" onclick="selectMatch('b','2')">I don't eat lunch</div>
+        <div class="match-item" id="b3" onclick="selectMatch('b','3')">Where does</div>
+        <div class="match-item" id="b4" onclick="selectMatch('b','4')">The technicians check</div>
+        <div class="match-item" id="b5" onclick="selectMatch('b','5')">Does your team</div>
+        <div class="match-item" id="b6" onclick="selectMatch('b','6')">She usually drives</div>
+      </div>
+      <div>
+        <div class="match-col-title">◀ Ending</div>
+        <div class="match-item" id="e1" onclick="selectMatch('e','3')">your manager work?</div>
+        <div class="match-item" id="e2" onclick="selectMatch('e','1')">arrives at the hangar first.</div>
+        <div class="match-item" id="e3" onclick="selectMatch('e','6')">to work on Mondays.</div>
+        <div class="match-item" id="e4" onclick="selectMatch('e','4')">the aircraft before every flight.</div>
+        <div class="match-item" id="e5" onclick="selectMatch('e','2')">at the canteen.</div>
+        <div class="match-item" id="e6" onclick="selectMatch('e','5')">speak English well?</div>
+      </div>
+    </div>
+
+    <div class="match-result" id="matchResult">Select a beginning, then an ending to make a sentence.</div>
+    <div class="match-score" id="matchScore">
+      <div class="match-score-num" id="matchScoreNum">0/6</div>
+      <div style="color:var(--muted);font-size:0.85rem;margin-top:0.3rem">correct matches</div>
+    </div>
+  </div>
+
+  <!-- =================== ACTIVITY 2: SENTENCE BUILDING =================== -->
+  <div class="section" style="animation-delay:0.1s">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Sentence Building — Your Own Words</div>
+        <div class="section-desc">Use the prompts to write a complete sentence. Then say it aloud!</div>
+      </div>
+      <div class="time-tag">⏱ 12 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">Use this formula to build your sentence:<br>
+          <strong>Positive:</strong> I/He/She + verb(+s) + object + place + time<br>
+          <strong>Negative:</strong> I + don't / He + doesn't + verb + object<br>
+          <strong>Question:</strong> What/Where + do/does + subject + verb?
+        </div>
+        <div class="gn-tr">Cümle kurmak için bu formülü kullanın:<br>
+          <strong>Olumlu:</strong> Ben/O + fiil(+s) + nesne + yer + zaman<br>
+          <strong>Olumsuz:</strong> Ben + don't / O + doesn't + fiil + nesne<br>
+          <strong>Soru:</strong> What/Where + do/does + özne + fiil?
+        </div>
+      </div>
+      <div class="gn-rule">💡 Your sentence doesn't need to be long — just correct! A short, correct sentence is better than a long, wrong one. / Cümlenizin uzun olması gerekmez — sadece doğru olsun! Kısa ve doğru, uzun ve yanlıştan iyidir.</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> After writing, each person reads their sentence aloud. The group can ask one question about it. Mistakes are welcome — that's how we learn!</div>
+
+    <div class="build-item">
+      <div class="build-prompt">1. Write a sentence about <strong>what you do every morning</strong> before work.<br><span style="font-size:0.8rem">Use: Subject + Verb + Object + Time</span></div>
+      <textarea class="build-textarea" id="build1" placeholder="Write your sentence here…" oninput="textareaChange(this,'ex1')"></textarea>
+      <div class="build-example" id="ex1">💡 Example: "I drink one coffee and check my phone every morning."</div>
+      <button class="btn-ghost" style="margin-top:0.5rem" onclick="toggleExample('ex1')">See example</button>
+    </div>
+
+    <div class="build-item">
+      <div class="build-prompt">2. Write a sentence about <strong>something you don't do at work</strong>.<br><span style="font-size:0.8rem">Use: Subject + don't/doesn't + Verb + Object</span></div>
+      <textarea class="build-textarea" id="build2" placeholder="Write your sentence here…" oninput="textareaChange(this,'ex2')"></textarea>
+      <div class="build-example" id="ex2">💡 Example: "I don't eat lunch in the office — I go outside."</div>
+      <button class="btn-ghost" style="margin-top:0.5rem" onclick="toggleExample('ex2')">See example</button>
+    </div>
+
+    <div class="build-item">
+      <div class="build-prompt">3. Write a question to ask your partner about <strong>their weekend routine</strong>.<br><span style="font-size:0.8rem">Use: What / Where / When + do/does + Subject + Verb?</span></div>
+      <textarea class="build-textarea" id="build3" placeholder="Write your question here…" oninput="textareaChange(this,'ex3')"></textarea>
+      <div class="build-example" id="ex3">💡 Example: "What do you usually do on Sunday mornings?"</div>
+      <button class="btn-ghost" style="margin-top:0.5rem" onclick="toggleExample('ex3')">See example</button>
+    </div>
+
+    <div class="build-item">
+      <div class="build-prompt">4. Write a sentence about <strong>a colleague or someone on your team</strong> — what they do at work.<br><span style="font-size:0.8rem">Use: He/She + Verb(+s) + Object + Place</span></div>
+      <textarea class="build-textarea" id="build4" placeholder="Write your sentence here…" oninput="textareaChange(this,'ex4')"></textarea>
+      <div class="build-example" id="ex4">💡 Example: "He checks the engines in the maintenance hangar every week."</div>
+      <button class="btn-ghost" style="margin-top:0.5rem" onclick="toggleExample('ex4')">See example</button>
+    </div>
+  </div>
+
+  <!-- =================== ACTIVITY 3: YES/NO vs WH- DRILL =================== -->
+  <div class="section" style="animation-delay:0.15s">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">Yes/No or Wh- Question?</div>
+        <div class="section-desc">Look at each situation. What kind of question do you need? Click the right type.</div>
+      </div>
+      <div class="time-tag">⏱ 8 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en"><strong>Yes/No Question:</strong> The answer is YES or NO.<br>→ Use <strong>Do / Does</strong> at the start.<br><em>Does she work here? → Yes, she does.</em><br><br><strong>Wh- Question:</strong> The answer gives information.<br>→ Use <strong>What / Where / When / How</strong> at the start.<br><em>Where does she work? → In the hangar.</em></div>
+        <div class="gn-tr"><strong>Evet/Hayır Sorusu:</strong> Cevap EVET ya da HAYIR'dır.<br>→ Başta <strong>Do / Does</strong> kullanılır.<br><em>Burada mı çalışıyor? → Evet, çalışıyor.</em><br><br><strong>Soru Kelimeli Soru:</strong> Cevap bilgi verir.<br>→ Başta <strong>What/Nerede/Ne zaman/Nasıl</strong> kullanılır.<br><em>Nerede çalışıyor? → Hangarda.</em></div>
+      </div>
+      <div class="gn-rule">⚠️ Ask yourself: "Can I answer this with just YES or NO?" If yes → Yes/No question. If you need more info → Wh- question. / Kendinize sorun: "Buna sadece EVET ya da HAYIR ile cevap verebilir miyim?" Evet → Evet/Hayır sorusu. Daha fazla bilgi gerekiyorsa → Soru kelimeli soru.</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> After each answer, ask the group to actually SAY the question. This is the best speaking practice in the activity!</div>
+
+    <div class="question-drill">
+
+      <div class="drill-item">
+        <div class="drill-statement">You want to know <strong>the time the shift starts</strong>.</div>
+        <div class="drill-options">
+          <button class="drill-btn" onclick="drillAnswer(this,'wh','1')">Wh- Question</button>
+          <button class="drill-btn" onclick="drillAnswer(this,'yesno','1')">Yes/No Question</button>
+        </div>
+        <div class="drill-feedback" id="df1"></div>
+      </div>
+
+      <div class="drill-item">
+        <div class="drill-statement">You want to know <strong>if your colleague works today</strong>.</div>
+        <div class="drill-options">
+          <button class="drill-btn" onclick="drillAnswer(this,'yesno','2')">Yes/No Question</button>
+          <button class="drill-btn" onclick="drillAnswer(this,'wh','2')">Wh- Question</button>
+        </div>
+        <div class="drill-feedback" id="df2"></div>
+      </div>
+
+      <div class="drill-item">
+        <div class="drill-statement">You want to know <strong>where the manager eats lunch</strong>.</div>
+        <div class="drill-options">
+          <button class="drill-btn" onclick="drillAnswer(this,'wh','3')">Wh- Question</button>
+          <button class="drill-btn" onclick="drillAnswer(this,'yesno','3')">Yes/No Question</button>
+        </div>
+        <div class="drill-feedback" id="df3"></div>
+      </div>
+
+      <div class="drill-item">
+        <div class="drill-statement">You want to know <strong>if the pilot speaks English</strong>.</div>
+        <div class="drill-options">
+          <button class="drill-btn" onclick="drillAnswer(this,'yesno','4')">Yes/No Question</button>
+          <button class="drill-btn" onclick="drillAnswer(this,'wh','4')">Wh- Question</button>
+        </div>
+        <div class="drill-feedback" id="df4"></div>
+      </div>
+
+      <div class="drill-item">
+        <div class="drill-statement">You want to know <strong>how often they service the aircraft</strong>.</div>
+        <div class="drill-options">
+          <button class="drill-btn" onclick="drillAnswer(this,'wh','5')">Wh- Question</button>
+          <button class="drill-btn" onclick="drillAnswer(this,'yesno','5')">Yes/No Question</button>
+        </div>
+        <div class="drill-feedback" id="df5"></div>
+      </div>
+
+      <div class="drill-item">
+        <div class="drill-statement">You want to know <strong>if the office is open on Saturdays</strong>.</div>
+        <div class="drill-options">
+          <button class="drill-btn" onclick="drillAnswer(this,'yesno','6')">Yes/No Question</button>
+          <button class="drill-btn" onclick="drillAnswer(this,'wh','6')">Wh- Question</button>
+        </div>
+        <div class="drill-feedback" id="df6"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =================== ACTIVITY 4: CONVERSATION CARDS =================== -->
+  <div class="section" style="animation-delay:0.2s">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Conversation Cards — Talk Time! 🎲</div>
+        <div class="section-desc">Click the card to get a new question. Answer in a full sentence. Use your new grammar!</div>
+      </div>
+      <div class="time-tag">⏱ 10 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Speaking Reminder / Konuşma Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">When you speak, try to use what you practised today:<br>✅ Full sentences (not just single words)<br>✅ Present Simple for routines and habits<br>✅ Don't / Doesn't for negatives<br>✅ Do / Does / Wh- for questions</div>
+        <div class="gn-tr">Konuşurken bugün pratik yaptıklarınızı kullanmaya çalışın:<br>✅ Tam cümleler (tek kelime değil)<br>✅ Rutin ve alışkanlıklar için Geniş Zaman<br>✅ Olumsuzlar için Don't / Doesn't<br>✅ Sorular için Do / Does / Soru kelimeleri</div>
+      </div>
+      <div class="gn-rule">💬 It's okay to make mistakes when speaking! The important thing is to TRY. / Konuşurken hata yapmak normaldir! Önemli olan DENEMEK.</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> This is the fun end-of-week wind-down. Low pressure. Laugh, chat, make mistakes. You can go around the group or let them pick who answers. Aim for full sentences each time!</div>
+
+    <div class="conv-card-wrap">
+      <div class="conv-card" onclick="nextCard()">
+        <div class="conv-card-icon" id="cardIcon">🎲</div>
+        <div class="conv-card-text" id="cardText">Click to get your first question!</div>
+        <div class="conv-card-sub" id="cardSub">Tap the card to start</div>
+      </div>
+    </div>
+    <div class="conv-nav">
+      <button class="btn" onclick="nextCard()">Next Card →</button>
+      <button class="btn-ghost" onclick="shuffleCards()">🔀 Shuffle</button>
+    </div>
+    <div class="counter-display" id="cardCounter">0 of 12 cards</div>
+  </div>
+
+  <div class="lesson-end">
+    <h2>Week done! <span>Well done!</span> ✈</h2>
+    <p>Check your homework file for some practice to do before next week. See you Monday!</p>
+  </div>
+
+</div>
+
+<script>
+// ---- MATCHING ----
+let selectedB = null, selectedE = null;
+let matchCorrect = 0;
+const pairs = { '1':'1', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6' };
+// beginnings: 1->e2 (arrives), 2->e5 (canteen), 3->e1 (manager), 4->e4 (aircraft), 5->e6 (speak), 6->e3 (drives)
+const correctPairs = { '1':'1', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6' };
+// b1 matches e2 (arrives), b2 matches e5 (canteen), b3 matches e1 (manager work), b4 matches e4 (aircraft), b5 matches e6 (speak), b6 matches e3 (drives)
+const bToE = { '1':'2', '2':'5', '3':'1', '4':'4', '5':'6', '6':'3' };
+
+function selectMatch(type, num) {
+  const el = document.getElementById((type === 'b' ? 'b' : 'e') + num);
+  if (el.classList.contains('matched')) return;
+
+  if (type === 'b') {
+    if (selectedB) document.getElementById('b' + selectedB).classList.remove('selected');
+    selectedB = num;
+    el.classList.add('selected');
+  } else {
+    if (selectedE) document.getElementById('e' + selectedE).classList.remove('selected');
+    selectedE = num;
+    el.classList.add('selected');
+  }
+
+  if (selectedB && selectedE) {
+    const correctE = bToE[selectedB];
+    const bEl = document.getElementById('b' + selectedB);
+    const eEl = document.getElementById('e' + selectedE);
+
+    if (selectedE === correctE) {
+      bEl.classList.remove('selected'); bEl.classList.add('matched');
+      eEl.classList.remove('selected'); eEl.classList.add('matched');
+      matchCorrect++;
+      document.getElementById('matchResult').textContent = '✓ Correct! Great match!';
+      document.getElementById('matchResult').style.color = 'var(--correct)';
+    } else {
+      bEl.classList.add('wrong-flash'); eEl.classList.add('wrong-flash');
+      document.getElementById('matchResult').textContent = '✗ Not quite — try again!';
+      document.getElementById('matchResult').style.color = 'var(--wrong)';
+      setTimeout(() => {
+        bEl.classList.remove('wrong-flash','selected');
+        eEl.classList.remove('wrong-flash','selected');
+      }, 800);
+    }
+    selectedB = null; selectedE = null;
+
+    const scoreEl = document.getElementById('matchScore');
+    scoreEl.classList.add('show');
+    document.getElementById('matchScoreNum').textContent = matchCorrect + '/6';
+    updateProg();
+  }
+}
+
+// ---- SENTENCE BUILDER ----
+function textareaChange(el, exId) {
+  if (el.value.trim().length > 5) el.classList.add('has-content');
+  else el.classList.remove('has-content');
+  updateProg();
+}
+
+function toggleExample(id) {
+  document.getElementById(id).classList.toggle('show');
+}
+
+// ---- DRILL ----
+const drillCorrect = { '1':'wh', '2':'yesno', '3':'wh', '4':'yesno', '5':'wh', '6':'yesno' };
+const drillExplanation = {
+  '1': '✓ Wh- Question! "What time does the shift start?"',
+  '2': '✓ Yes/No Question! "Does your colleague work today?"',
+  '3': '✓ Wh- Question! "Where does the manager eat lunch?"',
+  '4': '✓ Yes/No Question! "Does the pilot speak English?"',
+  '5': '✓ Wh- Question! "How often do they service the aircraft?"',
+  '6': '✓ Yes/No Question! "Is the office open on Saturdays?"'
+};
+let drillDone = 0;
+
+function drillAnswer(btn, type, num) {
+  const fb = document.getElementById('df' + num);
+  const allBtns = btn.parentElement.querySelectorAll('.drill-btn');
+  allBtns.forEach(b => b.classList.add('disabled'));
+  fb.classList.add('show');
+
+  if (type === drillCorrect[num]) {
+    btn.classList.add('correct-choice');
+    fb.className = 'drill-feedback show ok';
+    fb.textContent = drillExplanation[num];
+    drillDone++;
+  } else {
+    btn.classList.add('wrong-choice');
+    fb.className = 'drill-feedback show no';
+    fb.textContent = '✗ Not quite. ' + drillExplanation[num];
+    // highlight the correct one
+    allBtns.forEach(b => {
+      if ((b.textContent.includes('Wh') && drillCorrect[num] === 'wh') ||
+          (b.textContent.includes('Yes') && drillCorrect[num] === 'yesno')) {
+        b.classList.add('correct-choice');
+      }
+    });
+  }
+  updateProg();
+}
+
+// ---- CONVERSATION CARDS ----
+const cards = [
+  { icon: '🛫', text: 'Describe your job to a new person. Use 3 sentences!', sub: 'My job is... / I work... / I usually...' },
+  { icon: '☕', text: 'What do you never do in the morning? Why not?', sub: 'I never... because...' },
+  { icon: '✈', text: 'Ask the person next to you three questions about their evening routine.', sub: 'What do you...? / When do you...? / Do you...?' },
+  { icon: '🔧', text: 'Describe something important that happens at the hangar.', sub: 'The team always... / They check...' },
+  { icon: '🏠', text: 'Where do you usually eat dinner? Describe it in two sentences.', sub: 'I usually eat at... / I don\'t eat...' },
+  { icon: '📱', text: 'What does a typical Friday evening look like for you?', sub: 'On Fridays I usually...' },
+  { icon: '🤝', text: 'Tell us one thing your team does well at work.', sub: 'My team always... / We usually...' },
+  { icon: '🌙', text: 'It\'s 9pm right now! What do you normally do at 9pm on a work night?', sub: 'At 9pm I usually... / I don\'t...' },
+  { icon: '🛩️', text: 'Make a sentence with: pilot / check / before / every flight', sub: 'Use the S + V + O + Time formula!' },
+  { icon: '❓', text: 'Make a Wh- question for your teacher. She has to answer it!', sub: 'Where / What / When / How often...' },
+  { icon: '🏙️', text: 'Do you like working at Alp Aviation? Why / Why not?', sub: 'I like... because... / I don\'t like...' },
+  { icon: '🎯', text: 'What is one English word you learned this week? Use it in a sentence!', sub: 'Make a full sentence — show us!' },
+];
+
+let cardOrder = [...Array(cards.length).keys()];
+let cardIdx = 0;
+
+function shuffleCards() {
+  cardOrder = cardOrder.sort(() => Math.random() - 0.5);
+  cardIdx = 0;
+  showCard();
+}
+
+function nextCard() {
+  if (cardIdx < cardOrder.length) {
+    showCard();
+    cardIdx++;
+  } else {
+    cardIdx = 0;
+    showCard();
+    cardIdx++;
+  }
+}
+
+function showCard() {
+  const c = cards[cardOrder[cardIdx % cardOrder.length]];
+  document.getElementById('cardIcon').textContent = c.icon;
+  document.getElementById('cardText').textContent = c.text;
+  document.getElementById('cardSub').textContent = c.sub;
+  document.getElementById('cardCounter').textContent = `Card ${(cardIdx % cardOrder.length) + 1} of ${cards.length}`;
+}
+
+// ---- PROGRESS ----
+function updateProg() {
+  const total = 6 + 4 + 6;
+  const done = matchCorrect
+    + document.querySelectorAll('.build-textarea.has-content').length
+    + drillDone;
+  document.getElementById('prog').style.width = Math.min(100, Math.round(done / total * 100)) + '%';
+}
+</script>
+</body>
+</html>

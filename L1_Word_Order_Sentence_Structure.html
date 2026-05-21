@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alp Aviation English — Lesson 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #faf7f0;
+    --sky-mid: #f2ede0;
+    --sky-light: #e8e0cc;
+    --horizon: #c8a850;
+    --gold: #e8a020;
+    --gold-light: #f5c05a;
+    --white: #2a2318;
+    --muted: #6b5a38;
+    --correct: #5ecb7a;
+    --wrong: #e05555;
+    --card: rgba(255,255,255,0.85);
+    --border: rgba(180,130,30,0.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--sky);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Warm background glow */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% -10%, rgba(232,160,32,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 100%, rgba(232,160,32,0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+    position: relative;
+  }
+
+  .lesson-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--sky);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 span { color: var(--gold); }
+
+  .lesson-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .plane-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 1.4rem;
+  }
+
+  .plane-divider::before, .plane-divider::after {
+    content: '';
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 10px;
+    height: 6px;
+    margin: 1.5rem 0 2.5rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--horizon), var(--gold));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* Section */
+  .section {
+    background: #ffffff; box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-num {
+    background: var(--gold);
+    color: var(--sky);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--white);
+  }
+
+  .section-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+
+  .time-tag {
+    margin-left: auto;
+    background: rgba(180,130,30,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ---- ACTIVITY 1: Grammar Focus Box ---- */
+  .grammar-box {
+    background: rgba(180,140,40,0.1);
+    border: 1px solid rgba(180,140,40,0.35);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .grammar-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .formula {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .formula-part {
+    background: var(--sky-light);
+    border: 1px solid var(--horizon);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+  }
+
+  .formula-arrow {
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  .example-row {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .example-row strong { color: var(--white); font-weight: 500; }
+
+  /* ---- ACTIVITY 2: Jumbled Sentences ---- */
+  .jumble-item {
+    margin-bottom: 1.8rem;
+  }
+
+  .jumble-label {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.7rem;
+  }
+
+  .word-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .chip {
+    background: var(--sky-mid);
+    border: 1px solid var(--horizon);
+    color: var(--white);
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .chip:hover { background: var(--horizon); transform: translateY(-1px); }
+  .chip.used { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+  .chip.selected { background: var(--gold); color: var(--sky); border-color: var(--gold); }
+
+  .answer-area {
+    min-height: 48px;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-size: 0.92rem;
+    color: var(--white);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    margin-bottom: 0.5rem;
+  }
+
+  .answer-area:hover { border-color: var(--horizon); }
+  .answer-area.correct { border-color: var(--correct); background: rgba(46,180,100,0.1); }
+  .answer-area.wrong { border-color: var(--wrong); background: rgba(200,60,50,0.08); }
+
+  .placed-chip {
+    background: var(--sky-light);
+    border: 1px solid var(--horizon);
+    color: var(--white);
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .placed-chip:hover { background: var(--wrong); border-color: var(--wrong); }
+
+  /* ---- ACTIVITY 3: Gap Fill ---- */
+  .gap-sentence {
+    font-size: 1rem;
+    line-height: 2.2;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .gap-input {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid var(--horizon);
+    background: transparent;
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    width: 120px;
+    padding: 0 0.3rem;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .gap-input:focus { border-color: var(--gold); }
+  .gap-input.correct { border-color: var(--correct); color: var(--correct); }
+  .gap-input.wrong { border-color: var(--wrong); color: var(--wrong); }
+
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(180,130,30,0.06);
+    border-radius: 10px;
+    border: 1px dashed var(--border);
+  }
+
+  .bank-word {
+    background: var(--sky-light);
+    border: 1px solid var(--horizon);
+    color: var(--muted);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+
+  /* ---- ACTIVITY 4: Error Correction ---- */
+  .error-item {
+    background: rgba(200,60,50,0.06);
+    border: 1px solid rgba(231,76,60,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .error-sentence {
+    font-size: 0.95rem;
+    color: var(--white);
+  }
+
+  .error-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(200,60,50,0.35);
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    width: 100%;
+    padding: 0.3rem 0;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .error-input:focus { border-color: var(--gold); }
+  .error-input.correct { border-color: var(--correct); color: var(--correct); }
+
+  .error-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ---- ACTIVITY 5: Speaking Prompts ---- */
+  .speak-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 560px) { .speak-grid { grid-template-columns: 1fr; } }
+
+  .speak-card {
+    background: rgba(180,140,40,0.08);
+    border: 1px solid rgba(180,140,40,0.25);
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem;
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .speak-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+  }
+
+  .speak-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+  .speak-card p {
+    font-size: 0.9rem;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .speak-card .speak-tip {
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  /* Buttons */
+  .btn {
+    background: var(--gold);
+    color: var(--sky);
+    border: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.65rem 1.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 0.5rem;
+  }
+
+  .btn-ghost:hover { border-color: var(--muted); color: var(--white); }
+
+  /* Feedback */
+  .feedback-msg {
+    display: none;
+    font-size: 0.85rem;
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+  }
+
+  .feedback-msg.show { display: block; }
+  .feedback-msg.ok { background: rgba(46,180,100,0.12); color: var(--correct); }
+  .feedback-msg.no { background: rgba(200,60,50,0.10); color: var(--wrong); }
+
+  .reveal-answer {
+    display: none;
+    font-size: 0.88rem;
+    color: var(--correct);
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(46,180,100,0.1);
+    border-radius: 6px;
+    border-left: 3px solid var(--correct);
+  }
+
+  .reveal-answer.show { display: block; }
+
+  /* Matching */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .match-col { display: flex; flex-direction: column; gap: 0.6rem; }
+  .match-col-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .match-item {
+    background: var(--sky-mid);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.4;
+  }
+
+  .match-item:hover { border-color: var(--horizon); }
+  .match-item.active { border-color: var(--gold); background: rgba(245,166,35,0.1); }
+  .match-item.matched { border-color: var(--correct); background: rgba(46,180,100,0.1); cursor: default; }
+  .match-item.wrong-match { border-color: var(--wrong); background: rgba(200,60,50,0.08); }
+
+  /* Score display */
+  .score-display {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(180,130,30,0.08);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 12px;
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .score-display.show { display: block; }
+  .score-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--gold);
+  }
+
+  .score-label { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+  /* Teacher Notes */
+  .teacher-note {
+    background: rgba(180,130,30,0.06);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .teacher-note strong { color: var(--gold); }
+
+  /* ---- BILINGUAL GRAMMAR NOTES ---- */
+  .grammar-note {
+    background: rgba(232,160,32,0.06);
+    border: 1px solid rgba(232,160,32,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .grammar-note-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .grammar-note-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(232,160,32,0.2);
+  }
+  .gn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.4rem;
+    margin-bottom: 0.6rem;
+    align-items: start;
+  }
+  @media (max-width: 540px) { .gn-row { grid-template-columns: 1fr; } }
+  .gn-en { font-size: 0.88rem; color: var(--white); line-height: 1.6; }
+  .gn-tr { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-style: italic; }
+  .gn-rule {
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    margin-top: 0.6rem;
+    padding: 0.45rem 0.9rem;
+    background: rgba(232,160,32,0.07);
+    border-radius: 6px;
+    line-height: 1.55;
+  }
+
+  /* Lesson end */
+  .lesson-end {
+    text-align: center;
+    padding: 2.5rem 1rem;
+  }
+
+  .lesson-end h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .lesson-end p { color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="lesson-header">
+    <div class="lesson-badge">✈ Alp Aviation English</div>
+    <h1>Lesson 3 — <span>Word Order</span><br>& Sentence Structure</h1>
+
+    <div class="plane-divider">✈</div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- =================== SECTION 1: GRAMMAR FOCUS =================== -->
+  <div class="section" style="animation-delay:0.05s">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">Grammar Focus — The Basic English Sentence</div>
+        <div class="section-desc">Before we practise, let's look at the rule together.</div>
+      </div>
+      <div class="time-tag">⏱ 8 min</div>
+    </div>
+
+    <div class="teacher-note"><strong>Teacher note:</strong> Read through the formulas together. Ask them to give one example each before moving on. Keep it light!</div>
+
+    <div class="grammar-box">
+      <h3>✦ Positive Sentence</h3>
+      <div class="formula">
+        <div class="formula-part">Subject</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Verb</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Object</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Place</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Time</div>
+      </div>
+      <div class="example-row">✈ <strong>The pilot checks the instruments in the cockpit every morning.</strong></div>
+      <div class="example-row">🏠 <strong>My wife cooks dinner at home every evening.</strong></div>
+    </div>
+
+    <div class="grammar-box">
+      <h3>✦ Negative Sentence</h3>
+      <div class="formula">
+        <div class="formula-part">Subject</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">don't / doesn't</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Verb</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Object</div>
+      </div>
+      <div class="example-row">✈ <strong>The technician doesn't work on Sundays.</strong></div>
+      <div class="example-row">🏠 <strong>I don't drink coffee at night.</strong></div>
+    </div>
+
+    <div class="grammar-box">
+      <h3>✦ Question Formation</h3>
+      <div class="formula">
+        <div class="formula-part">Do / Does</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Subject</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Verb</div>
+        <div class="formula-arrow">?</div>
+      </div>
+      <div class="formula" style="margin-top:0.6rem">
+        <div class="formula-part">Wh-word</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">do/does</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Subject</div>
+        <div class="formula-arrow">+</div>
+        <div class="formula-part">Verb</div>
+        <div class="formula-arrow">?</div>
+      </div>
+      <div class="example-row">✈ <strong>Does the captain report to the base?</strong></div>
+      <div class="example-row">🏠 <strong>Where do you eat lunch?</strong></div>
+    </div>
+  </div>
+
+  <!-- =================== SECTION 2: JUMBLED SENTENCES =================== -->
+  <div class="section" style="animation-delay:0.1s">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Jumbled Sentences — Put Them in Order</div>
+        <div class="section-desc">Click the words in the correct order. Click a placed word to remove it.</div>
+      </div>
+      <div class="time-tag">⏱ 10 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">In English, the basic sentence order is: <strong>Subject → Verb → Object → Place → Time</strong>. The verb always comes right after the subject.</div>
+        <div class="gn-tr">İngilizcede temel cümle sırası: <strong>Özne → Fiil → Nesne → Yer → Zaman</strong>. Fiil her zaman özneden hemen sonra gelir.</div>
+      </div>
+      <div class="gn-row">
+        <div class="gn-en">✅ <em>I drink coffee every day.</em><br>❌ <em>Every day I coffee drink.</em></div>
+        <div class="gn-tr">✅ <em>Her gün kahve içerim.</em><br>❌ Türkçede fiil sona gelebilir ama İngilizcede gelemez!</div>
+      </div>
+      <div class="gn-rule">⚠️ Turkish puts the verb at the end. English does NOT. The verb comes second! / Türkçede fiil sona gelir. İngilizcede gelmez — fiil ikinci sıradadır!</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> Do the first one together as a group on the board/screen. Then let them race on their own devices!</div>
+
+    <!-- Jumble 1 -->
+    <div class="jumble-item">
+      <div class="jumble-label">1 — Everyday</div>
+      <div class="word-chips" id="chips1">
+        <div class="chip" onclick="placeWord(this,'area1','every day','coffee','I','drink')">I</div>
+        <div class="chip" onclick="placeWord(this,'area1','every day','coffee','I','drink')">drink</div>
+        <div class="chip" onclick="placeWord(this,'area1','every day','coffee','I','drink')">coffee</div>
+        <div class="chip" onclick="placeWord(this,'area1','every day','coffee','I','drink')">every day</div>
+      </div>
+      <div class="answer-area" id="area1" onclick=""></div>
+      <div>
+        <button class="btn" onclick="checkJumble('area1','I drink coffee every day','fb1','rev1')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetJumble('area1','chips1')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="fb1"></div>
+      <div class="reveal-answer" id="rev1">✓ I drink coffee every day.</div>
+    </div>
+
+    <!-- Jumble 2 -->
+    <div class="jumble-item">
+      <div class="jumble-label">2 — Aviation</div>
+      <div class="word-chips" id="chips2">
+        <div class="chip" onclick="placeWord(this,'area2','the runway','checks','the engineer','before landing')">the engineer</div>
+        <div class="chip" onclick="placeWord(this,'area2','the runway','checks','the engineer','before landing')">checks</div>
+        <div class="chip" onclick="placeWord(this,'area2','the runway','checks','the engineer','before landing')">the runway</div>
+        <div class="chip" onclick="placeWord(this,'area2','the runway','checks','the engineer','before landing')">before landing</div>
+      </div>
+      <div class="answer-area" id="area2"></div>
+      <div>
+        <button class="btn" onclick="checkJumble('area2','the engineer checks the runway before landing','fb2','rev2')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetJumble('area2','chips2')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="fb2"></div>
+      <div class="reveal-answer" id="rev2">✓ The engineer checks the runway before landing.</div>
+    </div>
+
+    <!-- Jumble 3 -->
+    <div class="jumble-item">
+      <div class="jumble-label">3 — Question</div>
+      <div class="word-chips" id="chips3">
+        <div class="chip" onclick="placeWord(this,'area3','does','work','where','your colleague')">where</div>
+        <div class="chip" onclick="placeWord(this,'area3','does','work','where','your colleague')">does</div>
+        <div class="chip" onclick="placeWord(this,'area3','does','work','where','your colleague')">your colleague</div>
+        <div class="chip" onclick="placeWord(this,'area3','does','work','where','your colleague')">work</div>
+      </div>
+      <div class="answer-area" id="area3"></div>
+      <div>
+        <button class="btn" onclick="checkJumble('area3','where does your colleague work','fb3','rev3')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetJumble('area3','chips3')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="fb3"></div>
+      <div class="reveal-answer" id="rev3">✓ Where does your colleague work?</div>
+    </div>
+
+    <!-- Jumble 4 -->
+    <div class="jumble-item">
+      <div class="jumble-label">4 — Negative</div>
+      <div class="word-chips" id="chips4">
+        <div class="chip" onclick="placeWord(this,'area4','on weekends','fly','the team','doesn\'t')">the team</div>
+        <div class="chip" onclick="placeWord(this,'area4','on weekends','fly','the team','doesn\'t')">doesn't</div>
+        <div class="chip" onclick="placeWord(this,'area4','on weekends','fly','the team','doesn\'t')">fly</div>
+        <div class="chip" onclick="placeWord(this,'area4','on weekends','fly','the team','doesn\'t')">on weekends</div>
+      </div>
+      <div class="answer-area" id="area4"></div>
+      <div>
+        <button class="btn" onclick="checkJumble('area4','the team doesn\'t fly on weekends','fb4','rev4')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetJumble('area4','chips4')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="fb4"></div>
+      <div class="reveal-answer" id="rev4">✓ The team doesn't fly on weekends.</div>
+    </div>
+  </div>
+
+  <!-- =================== SECTION 3: GAP FILL =================== -->
+  <div class="section" style="animation-delay:0.15s">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">Gap Fill — Complete the Sentences</div>
+        <div class="section-desc">Use the word bank. Type one word in each gap.</div>
+      </div>
+      <div class="time-tag">⏱ 10 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en"><strong>Frequency adverbs</strong> (always, usually, never) go <strong>before the main verb</strong> but <strong>after "to be"</strong>.<br>Question words (where, when, what) come <strong>first</strong> in a question.</div>
+        <div class="gn-tr"><strong>Sıklık zarfları</strong> (always/her zaman, usually/genellikle, never/asla) ana fiilden <strong>önce</strong> gelir.<br>Soru kelimeleri (where/nerede, when/ne zaman, what/ne) soruda <strong>en başa</strong> gelir.</div>
+      </div>
+      <div class="gn-row">
+        <div class="gn-en">✅ <em>I always check the fuel.</em><br>✅ <em>Where do you work?</em><br>✅ <em>Does he speak English?</em></div>
+        <div class="gn-tr">✅ <em>Her zaman yakıtı kontrol ederim.</em><br>✅ <em>Nerede çalışıyorsunuz?</em><br>✅ <em>İngilizce konuşuyor mu?</em></div>
+      </div>
+      <div class="gn-rule">⚠️ Do / Does comes before the subject in questions. Don't / Doesn't comes after the subject in negatives. / Do/Does sorularda özneden önce gelir. Don't/Doesn't olumsuzlarda özneden sonra gelir.</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> After checking, ask each person to read their sentence aloud. Ask one follow-up question about each sentence to spark a little chat.</div>
+
+    <div class="word-bank">
+      <span class="bank-word">does</span>
+      <span class="bank-word">do</span>
+      <span class="bank-word">doesn't</span>
+      <span class="bank-word">don't</span>
+      <span class="bank-word">where</span>
+      <span class="bank-word">when</span>
+      <span class="bank-word">what</span>
+      <span class="bank-word">always</span>
+      <span class="bank-word">usually</span>
+      <span class="bank-word">never</span>
+    </div>
+
+    <div class="gap-sentence">1. <input class="gap-input" id="g1" placeholder="___" data-answer="where"> do you live?</div>
+    <div class="gap-sentence">2. The pilot <input class="gap-input" id="g2" placeholder="___" data-answer="always"> checks the fuel before take-off.</div>
+    <div class="gap-sentence">3. <input class="gap-input" id="g3" placeholder="___" data-answer="does"> your manager speak English at work?</div>
+    <div class="gap-sentence">4. We <input class="gap-input" id="g4" placeholder="___" data-answer="don't"> work on public holidays.</div>
+    <div class="gap-sentence">5. <input class="gap-input" id="g5" placeholder="___" data-answer="what"> time does your shift start?</div>
+    <div class="gap-sentence">6. She <input class="gap-input" id="g6" placeholder="___" data-answer="usually"> drinks tea in the morning, not coffee.</div>
+    <div class="gap-sentence">7. I <input class="gap-input" id="g7" placeholder="___" data-answer="never"> eat breakfast at the airport.</div>
+    <div class="gap-sentence">8. <input class="gap-input" id="g8" placeholder="___" data-answer="when"> does the next flight arrive?</div>
+
+    <button class="btn" onclick="checkGaps()">Check All ✓</button>
+    <button class="btn-ghost" onclick="resetGaps()">Clear</button>
+
+    <div class="score-display" id="gapScore"></div>
+  </div>
+
+  <!-- =================== SECTION 4: ERROR CORRECTION =================== -->
+  <div class="section" style="animation-delay:0.2s">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Error Correction — Find & Fix the Mistake</div>
+        <div class="section-desc">Each sentence has ONE mistake. Write the correct sentence below it.</div>
+      </div>
+      <div class="time-tag">⏱ 10 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">Common mistakes to watch for:<br>
+          1. <strong>He/She/It</strong> → verb needs <strong>-s</strong>: <em>He goes, She works</em><br>
+          2. <strong>Negatives</strong> → use <strong>don't / doesn't</strong> + base verb<br>
+          3. <strong>Questions</strong> → wh-word comes <strong>first</strong><br>
+          4. <strong>Habits</strong> → use Present Simple, NOT "am/is/are + -ing"
+        </div>
+        <div class="gn-tr">Dikkat edilmesi gereken yaygın hatalar:<br>
+          1. <strong>He/She/It</strong> → fiile <strong>-s</strong> eklenir: <em>He goes, She works</em><br>
+          2. <strong>Olumsuz</strong> → <strong>don't / doesn't</strong> + yalın fiil<br>
+          3. <strong>Sorular</strong> → soru kelimesi <strong>en başa</strong> gelir<br>
+          4. <strong>Alışkanlıklar</strong> → Geniş Zaman kullanılır, "-ing" değil
+        </div>
+      </div>
+      <div class="gn-rule">⚠️ "I am drink" ❌ → "I drink" ✅ &nbsp;|&nbsp; "He go" ❌ → "He goes" ✅ &nbsp;|&nbsp; "Do you work where?" ❌ → "Where do you work?" ✅</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> Let them work in pairs — one identifies the mistake, the other writes the fix. Then swap roles for the next one. 5 mins pair work → 5 mins group review.</div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ &nbsp;"He go to work by car every day."</div>
+      <input class="error-input" id="e1" placeholder="Write the correct sentence…" data-answer="he goes to work by car every day">
+      <div class="error-hint">Hint: Think about subject-verb agreement (he/she/it).</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ &nbsp;"Do you work where?"</div>
+      <input class="error-input" id="e2" placeholder="Write the correct sentence…" data-answer="where do you work">
+      <div class="error-hint">Hint: In English, the question word comes first.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ &nbsp;"The mechanic not check the engine today."</div>
+      <input class="error-input" id="e3" placeholder="Write the correct sentence…" data-answer="the mechanic doesn't check the engine today">
+      <div class="error-hint">Hint: We need a helper verb for negatives.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ &nbsp;"I am drink coffee every morning."</div>
+      <input class="error-input" id="e4" placeholder="Write the correct sentence…" data-answer="i drink coffee every morning">
+      <div class="error-hint">Hint: For routines and habits we use the Present Simple.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ &nbsp;"Every morning goes the captain to hangar."</div>
+      <input class="error-input" id="e5" placeholder="Write the correct sentence…" data-answer="every morning the captain goes to the hangar">
+      <div class="error-hint">Hint: The subject comes before the verb in a positive sentence.</div>
+    </div>
+
+    <button class="btn" onclick="checkErrors()">Check All ✓</button>
+    <button class="btn-ghost" onclick="revealErrors()">Show Answers</button>
+
+    <div class="score-display" id="errorScore"></div>
+  </div>
+
+  <!-- =================== SECTION 5: SPEAKING PROMPTS =================== -->
+  <div class="section" style="animation-delay:0.25s">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <div class="section-title">Speaking Time — Let's Talk!</div>
+        <div class="section-desc">Choose a card. Answer in a full sentence. Help each other!</div>
+      </div>
+      <div class="time-tag">⏱ 10 min</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Speaking Tips / Konuşma İpuçları</div>
+      <div class="gn-row">
+        <div class="gn-en">Try to answer in <strong>full sentences</strong>, not just one word. Use connectors to link ideas: <em>First… Then… After that… Because…</em></div>
+        <div class="gn-tr">Tek kelime değil, <strong>tam cümle</strong> ile cevap vermeye çalışın. Fikirleri bağlamak için bağlaçlar kullanın: <em>Önce… Sonra… Ondan sonra… Çünkü…</em></div>
+      </div>
+      <div class="gn-rule">💬 Don't worry about mistakes — speak! Every sentence you say is practice. / Hata yapmaktan korkmayın — konuşun! Söylediğiniz her cümle pratiktir.</div>
+    </div>
+    <div class="teacher-note"><strong>Teacher note:</strong> This is the reward at the end of the lesson. Pick cards randomly — throw a pen, whoever it points to must answer! Low stakes, big laughs at 9pm.</div>
+
+    <div class="speak-grid">
+      <div class="speak-card">
+        <div class="speak-icon">🛫</div>
+        <p>What does your typical work morning look like? Describe 3 things you do.</p>
+        <div class="speak-tip">Use: "First I... Then I... After that I..."</div>
+      </div>
+      <div class="speak-card">
+        <div class="speak-icon">🏠</div>
+        <p>What do you usually do after work? Do you cook? Watch TV? Exercise?</p>
+        <div class="speak-tip">Use: "I usually... / I never... / I sometimes..."</div>
+      </div>
+      <div class="speak-card">
+        <div class="speak-icon">🔧</div>
+        <p>Ask your partner: "Where do you work?" "What do you do there?" "When do you start?"</p>
+        <div class="speak-tip">Practice question formation!</div>
+      </div>
+      <div class="speak-card">
+        <div class="speak-icon">☕</div>
+        <p>Describe someone in your team. What does he/she do at work?</p>
+        <div class="speak-tip">Use: "He/She works... / He/She doesn't..."</div>
+      </div>
+      <div class="speak-card">
+        <div class="speak-icon">📅</div>
+        <p>Tell us something you DON'T do on weekends. Why not?</p>
+        <div class="speak-tip">Use: "I don't... because..."</div>
+      </div>
+      <div class="speak-card">
+        <div class="speak-icon">✈</div>
+        <p>What is one thing that is always important in aviation? Why?</p>
+        <div class="speak-tip">Use: "It is always important to..."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End -->
+  <div class="lesson-end">
+    <h2>Great work tonight! ✈</h2>
+    <p>Check your emails — homework is on its way for extra practice this week.</p>
+  </div>
+
+</div>
+
+<script>
+// ---- PROGRESS ----
+function updateProgress() {
+  const sections = 5;
+  const done = document.querySelectorAll('.section .correct').length;
+  const pct = Math.min(100, Math.round((done / 16) * 100));
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ---- JUMBLE ----
+const jumbleState = { area1: [], area2: [], area3: [], area4: [] };
+
+function placeWord(chip, areaId, ...correctWords) {
+  if (chip.classList.contains('used')) return;
+  chip.classList.add('used');
+  const word = chip.textContent;
+  jumbleState[areaId].push(word);
+  renderArea(areaId);
+}
+
+function renderArea(areaId) {
+  const area = document.getElementById(areaId);
+  area.innerHTML = '';
+  jumbleState[areaId].forEach((word, i) => {
+    const span = document.createElement('span');
+    span.className = 'placed-chip';
+    span.textContent = word;
+    span.onclick = () => removeWord(areaId, i, word);
+    area.appendChild(span);
+  });
+}
+
+function removeWord(areaId, index, word) {
+  jumbleState[areaId].splice(index, 1);
+  renderArea(areaId);
+  // re-enable chip
+  const chips = document.querySelectorAll(`#chips${areaId.replace('area','')} .chip`);
+  chips.forEach(c => { if (c.textContent === word && c.classList.contains('used')) { c.classList.remove('used'); } });
+}
+
+function checkJumble(areaId, correct, fbId, revId) {
+  const area = document.getElementById(areaId);
+  const answer = jumbleState[areaId].join(' ').toLowerCase().replace(/[?]/g,'').trim();
+  const clean = correct.toLowerCase().replace(/[?]/g,'').trim();
+  const fb = document.getElementById(fbId);
+  const rev = document.getElementById(revId);
+  fb.classList.add('show');
+  if (answer === clean) {
+    area.classList.add('correct'); area.classList.remove('wrong');
+    fb.className = 'feedback-msg show ok'; fb.textContent = '✓ Perfect! Well done!';
+  } else {
+    area.classList.add('wrong'); area.classList.remove('correct');
+    fb.className = 'feedback-msg show no'; fb.textContent = '✗ Not quite. Check the word order and try again, or see the answer.';
+    rev.classList.add('show');
+  }
+  updateProgress();
+}
+
+function resetJumble(areaId, chipsId) {
+  jumbleState[areaId] = [];
+  document.getElementById(areaId).innerHTML = '';
+  document.getElementById(areaId).classList.remove('correct','wrong');
+  const num = areaId.replace('area','');
+  document.querySelectorAll(`#chips${num} .chip`).forEach(c => c.classList.remove('used','selected'));
+  document.getElementById(`fb${num}`).classList.remove('show');
+  document.getElementById(`rev${num}`).classList.remove('show');
+}
+
+// ---- GAP FILL ----
+function checkGaps() {
+  let correct = 0;
+  document.querySelectorAll('.gap-input').forEach(inp => {
+    const val = inp.value.trim().toLowerCase();
+    const ans = inp.dataset.answer.toLowerCase();
+    if (val === ans) { inp.classList.add('correct'); inp.classList.remove('wrong'); correct++; }
+    else { inp.classList.add('wrong'); inp.classList.remove('correct'); }
+  });
+  const scoreEl = document.getElementById('gapScore');
+  scoreEl.classList.add('show');
+  scoreEl.innerHTML = `<div class="score-num">${correct}/8</div><div class="score-label">correct answers</div>`;
+  updateProgress();
+}
+
+function resetGaps() {
+  document.querySelectorAll('.gap-input').forEach(inp => {
+    inp.value = ''; inp.classList.remove('correct','wrong');
+  });
+  document.getElementById('gapScore').classList.remove('show');
+}
+
+// ---- ERROR CORRECTION ----
+function checkErrors() {
+  let correct = 0;
+  for (let i = 1; i <= 5; i++) {
+    const inp = document.getElementById('e' + i);
+    const val = inp.value.trim().toLowerCase().replace(/[.?!]/g,'');
+    const ans = inp.dataset.answer.toLowerCase().replace(/[.?!]/g,'');
+    if (val === ans) { inp.classList.add('correct'); correct++; }
+  }
+  const scoreEl = document.getElementById('errorScore');
+  scoreEl.classList.add('show');
+  scoreEl.innerHTML = `<div class="score-num">${correct}/5</div><div class="score-label">correct sentences</div>`;
+  updateProgress();
+}
+
+function revealErrors() {
+  const answers = [
+    'He goes to work by car every day.',
+    'Where do you work?',
+    "The mechanic doesn't check the engine today.",
+    'I drink coffee every morning.',
+    'Every morning the captain goes to the hangar.'
+  ];
+  for (let i = 1; i <= 5; i++) {
+    const inp = document.getElementById('e' + i);
+    if (!inp.classList.contains('correct')) {
+      inp.value = answers[i-1];
+      inp.classList.add('correct');
+    }
+  }
+  const scoreEl = document.getElementById('errorScore');
+  scoreEl.classList.add('show');
+  scoreEl.innerHTML = `<div class="score-num">✓</div><div class="score-label">Answers revealed — discuss in class!</div>`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alp Aviation English — Homework</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8faf8;
+    --bg-mid: #edf3ef;
+    --bg-light: #ddeedd;
+    --purple: #3cb8a8;
+    --purple-light: #72d8ca;
+    --rose: #e8a030;
+    --white: #1a2e28;
+    --muted: #3a7060;
+    --correct: #5ecb7a;
+    --wrong: #e05555;
+    --card: rgba(255,255,255,0.9);
+    --border: rgba(40,150,130,0.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% -10%, rgba(60,184,168,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 110%, rgba(200,140,30,0.03) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container {
+    max-width: 820px; margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    position: relative; z-index: 1;
+  }
+
+  .hw-header { text-align: center; padding: 3rem 0 2rem; }
+
+  .hw-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--purple), var(--rose));
+    color: white;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem;
+  }
+
+  h1 span { color: var(--purple-light); }
+  .hw-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  .hw-intro {
+    background: rgba(40,150,130,0.07); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0 2.5rem; font-size: 0.9rem; color: var(--muted); line-height: 1.7;
+  }
+
+  .hw-intro strong { color: var(--purple-light); }
+
+  .section {
+    background: #ffffff; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
+  }
+
+  .section-num {
+    background: linear-gradient(135deg, var(--purple), var(--rose));
+    color: white; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.8rem;
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+
+  .section-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.1rem; }
+  .section-desc { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+
+  .pts-tag {
+    margin-left: auto; flex-shrink: 0;
+    background: rgba(60,184,168,0.1); border: 1px solid rgba(60,184,168,0.25);
+    color: var(--purple-light); font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 20px;
+  }
+
+  /* Gap fill */
+  .gap-sentence {
+    font-size: 0.95rem; line-height: 2.4; color: var(--white); margin-bottom: 0.2rem;
+  }
+
+  .gap-input {
+    display: inline-block; border: none;
+    border-bottom: 2px solid var(--border);
+    background: transparent; color: var(--purple-light);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 400;
+    width: 130px; padding: 0 0.3rem; outline: none; text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .gap-input:focus { border-color: var(--purple); }
+  .gap-input.correct { border-color: var(--correct); color: var(--correct); }
+  .gap-input.wrong { border-color: var(--wrong); color: var(--wrong); }
+
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin: 0.5rem 0 1.5rem; padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px; border: 1px dashed var(--border);
+  }
+
+  .bank-word {
+    background: var(--bg-light); border: 1px solid var(--border);
+    color: var(--muted); padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.85rem;
+  }
+
+  /* Error correction */
+  .error-item {
+    background: rgba(245,107,107,0.05); border: 1px solid rgba(245,107,107,0.2);
+    border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+
+  .error-sentence { font-size: 0.92rem; color: var(--white); }
+
+  .error-input {
+    background: transparent; border: none;
+    border-bottom: 2px solid rgba(200,60,60,0.3);
+    color: var(--purple-light); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    width: 100%; padding: 0.3rem 0; outline: none; transition: border-color 0.2s;
+  }
+
+  .error-input:focus { border-color: var(--purple); }
+  .error-input.correct { border-color: var(--correct); color: var(--correct); }
+
+  .error-hint { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+
+  /* Reorder */
+  .reorder-item { margin-bottom: 1.5rem; }
+
+  .reorder-label {
+    font-size: 0.8rem; color: var(--purple); font-family: 'Syne', sans-serif;
+    font-weight: 600; letter-spacing: 0.1em; margin-bottom: 0.6rem;
+  }
+
+  .word-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.7rem; }
+
+  .chip {
+    background: var(--bg-mid); border: 1px solid var(--border);
+    color: var(--white); padding: 0.4rem 0.85rem; border-radius: 8px;
+    font-size: 0.88rem; cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+
+  .chip:hover { background: var(--bg-light); border-color: var(--purple); transform: translateY(-1px); }
+  .chip.used { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+
+  .answer-area {
+    min-height: 46px; border: 2px dashed var(--border); border-radius: 10px;
+    padding: 0.6rem 1rem; font-size: 0.9rem; color: var(--white);
+    display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;
+    transition: border-color 0.2s; margin-bottom: 0.5rem;
+  }
+
+  .answer-area.correct { border-color: var(--correct); background: rgba(40,160,100,0.08); }
+  .answer-area.wrong { border-color: var(--wrong); background: rgba(245,107,107,0.06); }
+
+  .placed-chip {
+    background: var(--bg-light); border: 1px solid var(--border);
+    color: var(--white); padding: 0.3rem 0.75rem; border-radius: 6px;
+    font-size: 0.86rem; cursor: pointer; transition: all 0.2s;
+  }
+
+  .placed-chip:hover { background: var(--wrong); border-color: var(--wrong); }
+
+  /* Writing section */
+  .writing-prompt {
+    background: rgba(40,150,130,0.07); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem;
+    font-size: 0.92rem; color: var(--muted); line-height: 1.7;
+  }
+
+  .writing-prompt strong { color: var(--white); }
+
+  .writing-area {
+    width: 100%; background: transparent;
+    border: 2px solid var(--border); border-radius: 10px;
+    color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+    font-weight: 300; padding: 1rem; outline: none; resize: vertical;
+    min-height: 100px; transition: border-color 0.2s; margin-bottom: 0.8rem;
+  }
+
+  .writing-area:focus { border-color: var(--purple); }
+
+  .checklist {
+    display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;
+  }
+
+  .check-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.85rem; color: var(--muted); cursor: pointer;
+  }
+
+  .check-item input[type="checkbox"] {
+    width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer;
+  }
+
+  .check-item.checked { color: var(--correct); }
+
+  /* Buttons */
+  .btn {
+    background: linear-gradient(135deg, var(--purple), var(--rose));
+    color: white; border: none;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.05em; padding: 0.65rem 1.6rem; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
+  }
+
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent; color: var(--muted); border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; padding: 0.55rem 1.2rem;
+    border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-left: 0.5rem;
+  }
+
+  .btn-ghost:hover { border-color: var(--muted); color: var(--white); }
+
+  /* Feedback */
+  .feedback-msg { display: none; font-size: 0.85rem; margin-top: 0.6rem; padding: 0.5rem 0.8rem; border-radius: 6px; }
+  .feedback-msg.show { display: block; }
+  .feedback-msg.ok { background: rgba(86,224,168,0.1); color: var(--correct); }
+  .feedback-msg.no { background: rgba(200,60,60,0.08); color: var(--wrong); }
+
+  .reveal-answer { display: none; font-size: 0.88rem; color: var(--correct); margin-top: 0.5rem; padding: 0.4rem 0.8rem; background: rgba(40,160,100,0.08); border-radius: 6px; border-left: 3px solid var(--correct); }
+  .reveal-answer.show { display: block; }
+
+  .score-display { display: none; text-align: center; padding: 1.2rem; background: rgba(40,150,130,0.07); border: 1px solid rgba(60,184,168,0.2); border-radius: 12px; margin-top: 1rem; }
+  .score-display.show { display: block; }
+  .score-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--purple-light); }
+  .score-label { color: var(--muted); font-size: 0.88rem; margin-top: 0.3rem; }
+
+  /* ---- BILINGUAL GRAMMAR NOTES ---- */
+  .grammar-note {
+    background: rgba(40,150,130,0.06);
+    border: 1px solid rgba(60,184,168,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .grammar-note-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .grammar-note-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(60,184,168,0.2);
+  }
+  .gn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.4rem;
+    margin-bottom: 0.6rem;
+    align-items: start;
+  }
+  @media (max-width: 540px) { .gn-row { grid-template-columns: 1fr; } }
+  .gn-en { font-size: 0.88rem; color: var(--white); line-height: 1.6; }
+  .gn-tr { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-style: italic; }
+  .gn-rule {
+    font-size: 0.82rem;
+    color: var(--purple-light);
+    margin-top: 0.6rem;
+    padding: 0.45rem 0.9rem;
+    background: rgba(40,150,130,0.07);
+    border-radius: 6px;
+    line-height: 1.55;
+  }
+
+  /* Well done */
+  .hw-end { text-align: center; padding: 2.5rem 1rem; }
+  .hw-end h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .hw-end h2 span { background: linear-gradient(135deg, var(--purple-light), var(--rose)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hw-end p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; max-width: 500px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hw-header">
+    <div class="hw-badge">✈ Alp Aviation — Self Study</div>
+    <h1>This Week's <span>Homework</span></h1>
+    <p class="hw-sub">Word Order & Sentence Structure · Practice at your own pace</p>
+  </div>
+
+  <div class="hw-intro">
+    <strong>Hello everyone! 👋</strong><br>
+    Great work this week. This homework is for <strong>extra practice</strong> — do it when you have 20–30 quiet minutes.
+    There are 4 exercises. Each one has an answer button so you can check yourself.
+    Try your best before looking at the answers! 💪
+  </div>
+
+  <!-- =================== EXERCISE 1: GAP FILL =================== -->
+  <div class="section" style="animation-delay:0.05s">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">Gap Fill — Complete the Sentences</div>
+        <div class="section-desc">Choose a word from the bank and type it in the correct gap.</div>
+      </div>
+      <div class="pts-tag">10 points</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en"><strong>Frequency adverbs</strong> (always, usually, never) go <strong>before the main verb</strong>.<br><strong>Question words</strong> (what, where, when) go <strong>first</strong> in the sentence.<br><strong>Do</strong> is used with I / you / we / they.<br><strong>Does</strong> is used with he / she / it.</div>
+        <div class="gn-tr"><strong>Sıklık zarfları</strong> (always/her zaman, usually/genellikle, never/asla) ana fiilden <strong>önce</strong> gelir.<br><strong>Soru kelimeleri</strong> (what/ne, where/nerede, when/ne zaman) cümlede <strong>en başa</strong> gelir.<br><strong>Do</strong>: I / you / we / they ile kullanılır.<br><strong>Does</strong>: he / she / it ile kullanılır.</div>
+      </div>
+      <div class="gn-row">
+        <div class="gn-en">✅ <em>She <strong>always</strong> checks the report.</em><br>✅ <em><strong>Where</strong> do you work?</em><br>✅ <em><strong>Does</strong> he speak English?</em></div>
+        <div class="gn-tr">✅ <em>Raporu her zaman kontrol eder.</em><br>✅ <em>Nerede çalışıyorsunuz?</em><br>✅ <em>İngilizce konuşuyor mu?</em></div>
+      </div>
+      <div class="gn-rule">⚠️ Don't / Doesn't = negative. Do / Does = question. Never use both at the same time! / Don't/Doesn't = olumsuz. Do/Does = soru. İkisini aynı anda kullanmayın!</div>
+    </div>
+
+    <div class="word-bank">
+      <span class="bank-word">do</span>
+      <span class="bank-word">does</span>
+      <span class="bank-word">don't</span>
+      <span class="bank-word">doesn't</span>
+      <span class="bank-word">where</span>
+      <span class="bank-word">what</span>
+      <span class="bank-word">when</span>
+      <span class="bank-word">always</span>
+      <span class="bank-word">usually</span>
+      <span class="bank-word">never</span>
+    </div>
+
+    <div class="gap-sentence">1. <input class="gap-input" id="h1" data-answer="what" placeholder="___"> does your manager do every morning?</div>
+    <div class="gap-sentence">2. I <input class="gap-input" id="h2" data-answer="never" placeholder="___"> work on Sundays. It is my day off.</div>
+    <div class="gap-sentence">3. <input class="gap-input" id="h3" data-answer="does" placeholder="___"> the pilot speak English at work?</div>
+    <div class="gap-sentence">4. The team <input class="gap-input" id="h4" data-answer="always" placeholder="___"> checks the aircraft before a flight.</div>
+    <div class="gap-sentence">5. She <input class="gap-input" id="h5" data-answer="doesn't" placeholder="___"> eat breakfast — she only drinks coffee.</div>
+    <div class="gap-sentence">6. <input class="gap-input" id="h6" data-answer="where" placeholder="___"> do you usually go for lunch?</div>
+    <div class="gap-sentence">7. They <input class="gap-input" id="h7" data-answer="don't" placeholder="___"> use English in meetings very often.</div>
+    <div class="gap-sentence">8. <input class="gap-input" id="h8" data-answer="when" placeholder="___"> does the next maintenance check start?</div>
+    <div class="gap-sentence">9. He <input class="gap-input" id="h9" data-answer="usually" placeholder="___"> arrives at work at 7:30 in the morning.</div>
+    <div class="gap-sentence">10. <input class="gap-input" id="h10" data-answer="do" placeholder="___"> you live near the airport?</div>
+
+    <button class="btn" onclick="checkHW1()">Check My Answers ✓</button>
+    <button class="btn-ghost" onclick="resetHW1()">Clear</button>
+    <div class="score-display" id="hw1Score"></div>
+  </div>
+
+  <!-- =================== EXERCISE 2: ERROR CORRECTION =================== -->
+  <div class="section" style="animation-delay:0.1s">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Error Correction — Fix the Sentence</div>
+        <div class="section-desc">Each sentence has one mistake. Write the corrected sentence below.</div>
+      </div>
+      <div class="pts-tag">6 points</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">There is exactly <strong>one mistake</strong> in each sentence. It will be one of these:<br>
+          1. Missing <strong>-s</strong> on he/she/it verb<br>
+          2. Wrong negative form (should be don't/doesn't)<br>
+          3. Wrong question word order<br>
+          4. Using -ing instead of Present Simple<br>
+          5. Wrong subject-verb order
+        </div>
+        <div class="gn-tr">Her cümlede tam olarak <strong>bir hata</strong> var. Bunlardan biri olacak:<br>
+          1. He/She/It fiiline <strong>-s</strong> eksik<br>
+          2. Yanlış olumsuz biçim (don't/doesn't olmalı)<br>
+          3. Soruda yanlış kelime sırası<br>
+          4. Geniş Zaman yerine -ing kullanımı<br>
+          5. Yanlış özne-fiil sırası
+        </div>
+      </div>
+      <div class="gn-rule">🔍 Read each sentence slowly. Ask: "Does the verb agree with the subject? Is the word order correct?" / Her cümleyi yavaşça okuyun. Sorun: "Fiil özneyle uyuşuyor mu? Kelime sırası doğru mu?"</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ "She work in the maintenance department."</div>
+      <input class="error-input" id="err1" placeholder="Correct sentence…" data-answer="she works in the maintenance department">
+      <div class="error-hint">Hint: he/she/it → verb + s</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ "Does they check the engines every week?"</div>
+      <input class="error-input" id="err2" placeholder="Correct sentence…" data-answer="do they check the engines every week">
+      <div class="error-hint">Hint: "they" uses do, not does.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ "I am usually drive to work."</div>
+      <input class="error-input" id="err3" placeholder="Correct sentence…" data-answer="i usually drive to work">
+      <div class="error-hint">Hint: For habits, we use Present Simple — not am/is/are + verb-ing.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ "He go not to the office on Fridays."</div>
+      <input class="error-input" id="err4" placeholder="Correct sentence…" data-answer="he doesn't go to the office on fridays">
+      <div class="error-hint">Hint: To make a negative with he/she/it → doesn't + base verb.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ "What time you start work?"</div>
+      <input class="error-input" id="err5" placeholder="Correct sentence…" data-answer="what time do you start work">
+      <div class="error-hint">Hint: We need a helper verb (do/does) in questions.</div>
+    </div>
+
+    <div class="error-item">
+      <div class="error-sentence">❌ "The captain every morning to the hangar goes."</div>
+      <input class="error-input" id="err6" placeholder="Correct sentence…" data-answer="every morning the captain goes to the hangar">
+      <div class="error-hint">Hint: S + V + Object + Place — the verb comes right after the subject.</div>
+    </div>
+
+    <button class="btn" onclick="checkHW2()">Check My Answers ✓</button>
+    <button class="btn-ghost" onclick="revealHW2()">Show Answers</button>
+    <div class="score-display" id="hw2Score"></div>
+  </div>
+
+  <!-- =================== EXERCISE 3: JUMBLED SENTENCES =================== -->
+  <div class="section" style="animation-delay:0.15s">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">Reorder the Words — Make a Sentence</div>
+        <div class="section-desc">Click the words in the correct order. Click a placed word to remove it.</div>
+      </div>
+      <div class="pts-tag">4 points</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Grammar Reminder / Dilbilgisi Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">Remember the correct English word order:<br>
+          <strong>Positive:</strong> Subject + Verb + Object + Place + Time<br>
+          <strong>Negative:</strong> Subject + don't/doesn't + Verb + Object<br>
+          <strong>Question:</strong> Wh-word + do/does + Subject + Verb?
+        </div>
+        <div class="gn-tr">Doğru İngilizce kelime sırasını hatırlayın:<br>
+          <strong>Olumlu:</strong> Özne + Fiil + Nesne + Yer + Zaman<br>
+          <strong>Olumsuz:</strong> Özne + don't/doesn't + Fiil + Nesne<br>
+          <strong>Soru:</strong> Soru kelimesi + do/does + Özne + Fiil?
+        </div>
+      </div>
+      <div class="gn-row">
+        <div class="gn-en">✅ <em>My wife cooks dinner at home every evening.</em><br>✅ <em>What does the engineer do in the morning?</em></div>
+        <div class="gn-tr">✅ <em>Eşim her akşam evde akşam yemeği pişirir.</em><br>✅ <em>Mühendis sabahları ne yapar?</em></div>
+      </div>
+      <div class="gn-rule">⚠️ In Turkish, the verb often goes at the END. In English, the verb comes SECOND (right after the subject)! / Türkçede fiil genellikle SONA gelir. İngilizcede İKİNCİ sıraya gelir (özneden hemen sonra)!</div>
+    </div>
+
+    <!-- Jumble A -->
+    <div class="reorder-item">
+      <div class="reorder-label">A — Everyday</div>
+      <div class="word-chips" id="hwc1">
+        <div class="chip" onclick="hwPlace(this,'hwa1')">my wife</div>
+        <div class="chip" onclick="hwPlace(this,'hwa1')">cooks</div>
+        <div class="chip" onclick="hwPlace(this,'hwa1')">dinner</div>
+        <div class="chip" onclick="hwPlace(this,'hwa1')">at home</div>
+        <div class="chip" onclick="hwPlace(this,'hwa1')">every evening</div>
+      </div>
+      <div class="answer-area" id="hwa1"></div>
+      <div>
+        <button class="btn" onclick="checkHWJ('hwa1','my wife cooks dinner at home every evening','hwfb1','hwrev1')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetHWJ('hwa1','hwc1','hwfb1','hwrev1')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="hwfb1"></div>
+      <div class="reveal-answer" id="hwrev1">✓ My wife cooks dinner at home every evening.</div>
+    </div>
+
+    <!-- Jumble B -->
+    <div class="reorder-item">
+      <div class="reorder-label">B — Question</div>
+      <div class="word-chips" id="hwc2">
+        <div class="chip" onclick="hwPlace(this,'hwa2')">what</div>
+        <div class="chip" onclick="hwPlace(this,'hwa2')">does</div>
+        <div class="chip" onclick="hwPlace(this,'hwa2')">the engineer</div>
+        <div class="chip" onclick="hwPlace(this,'hwa2')">do</div>
+        <div class="chip" onclick="hwPlace(this,'hwa2')">in the morning</div>
+      </div>
+      <div class="answer-area" id="hwa2"></div>
+      <div>
+        <button class="btn" onclick="checkHWJ('hwa2','what does the engineer do in the morning','hwfb2','hwrev2')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetHWJ('hwa2','hwc2','hwfb2','hwrev2')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="hwfb2"></div>
+      <div class="reveal-answer" id="hwrev2">✓ What does the engineer do in the morning?</div>
+    </div>
+
+    <!-- Jumble C -->
+    <div class="reorder-item">
+      <div class="reorder-label">C — Negative</div>
+      <div class="word-chips" id="hwc3">
+        <div class="chip" onclick="hwPlace(this,'hwa3')">I</div>
+        <div class="chip" onclick="hwPlace(this,'hwa3')">don't</div>
+        <div class="chip" onclick="hwPlace(this,'hwa3')">understand</div>
+        <div class="chip" onclick="hwPlace(this,'hwa3')">the report</div>
+        <div class="chip" onclick="hwPlace(this,'hwa3')">completely</div>
+      </div>
+      <div class="answer-area" id="hwa3"></div>
+      <div>
+        <button class="btn" onclick="checkHWJ('hwa3','i don\'t understand the report completely','hwfb3','hwrev3')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetHWJ('hwa3','hwc3','hwfb3','hwrev3')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="hwfb3"></div>
+      <div class="reveal-answer" id="hwrev3">✓ I don't understand the report completely.</div>
+    </div>
+
+    <!-- Jumble D -->
+    <div class="reorder-item">
+      <div class="reorder-label">D — Aviation</div>
+      <div class="word-chips" id="hwc4">
+        <div class="chip" onclick="hwPlace(this,'hwa4')">the team</div>
+        <div class="chip" onclick="hwPlace(this,'hwa4')">always</div>
+        <div class="chip" onclick="hwPlace(this,'hwa4')">prepares</div>
+        <div class="chip" onclick="hwPlace(this,'hwa4')">the aircraft</div>
+        <div class="chip" onclick="hwPlace(this,'hwa4')">before departure</div>
+      </div>
+      <div class="answer-area" id="hwa4"></div>
+      <div>
+        <button class="btn" onclick="checkHWJ('hwa4','the team always prepares the aircraft before departure','hwfb4','hwrev4')">Check ✓</button>
+        <button class="btn-ghost" onclick="resetHWJ('hwa4','hwc4','hwfb4','hwrev4')">Reset</button>
+      </div>
+      <div class="feedback-msg" id="hwfb4"></div>
+      <div class="reveal-answer" id="hwrev4">✓ The team always prepares the aircraft before departure.</div>
+    </div>
+  </div>
+
+  <!-- =================== EXERCISE 4: FREE WRITING =================== -->
+  <div class="section" style="animation-delay:0.2s">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Free Writing — About You!</div>
+        <div class="section-desc">Write 5 sentences about your daily routine. Use the checklist to help you.</div>
+      </div>
+      <div class="pts-tag">bonus ⭐</div>
+    </div>
+
+    <div class="grammar-note">
+      <div class="grammar-note-title">📖 Writing Reminder / Yazma Hatırlatması</div>
+      <div class="gn-row">
+        <div class="gn-en">Write <strong>5 sentences</strong> — try to include all three types:<br>
+          ✅ <strong>Positive:</strong> <em>I usually wake up at 6am.</em><br>
+          ✅ <strong>Negative:</strong> <em>I don't work on Sundays.</em><br>
+          ✅ <strong>Question:</strong> <em>Where does your manager eat lunch?</em>
+        </div>
+        <div class="gn-tr"><strong>5 cümle</strong> yazın — üç türü de kullanmaya çalışın:<br>
+          ✅ <strong>Olumlu:</strong> <em>Genellikle sabah 6'da uyanırım.</em><br>
+          ✅ <strong>Olumsuz:</strong> <em>Pazar günleri çalışmam.</em><br>
+          ✅ <strong>Soru:</strong> <em>Müdürünüz öğle yemeğini nerede yer?</em>
+        </div>
+      </div>
+      <div class="gn-rule">💡 Bring your sentences to Monday's class — your teacher will read them and help you improve! / Cümlelerinizi Pazartesi dersine getirin — öğretmeniniz okuyacak ve geliştirmenize yardım edecek!</div>
+    </div>
+
+    <div class="writing-prompt">
+      Write <strong>5 sentences</strong> about your week — what you do, what you don't do, and one question you could ask a colleague.<br>
+      <span style="font-size:0.82rem">Tip: Use a mix of positive, negative, and question forms. Mix work and everyday life!</span>
+    </div>
+
+    <textarea class="writing-area" id="freeWrite" placeholder="Write your sentences here…&#10;&#10;1. I usually...&#10;2. I don't...&#10;3. At work, I always...&#10;4. My colleague...&#10;5. (Question): Where does...?"></textarea>
+
+    <div class="checklist" id="checklist">
+      <label class="check-item" id="ck1"><input type="checkbox" onchange="checkItem('ck1')"> ✅ I used a positive sentence (S + V + O)</label>
+      <label class="check-item" id="ck2"><input type="checkbox" onchange="checkItem('ck2')"> ✅ I used a negative sentence (don't / doesn't)</label>
+      <label class="check-item" id="ck3"><input type="checkbox" onchange="checkItem('ck3')"> ✅ I used a question (Do/Does or Wh-)</label>
+      <label class="check-item" id="ck4"><input type="checkbox" onchange="checkItem('ck4')"> ✅ I used he/she correctly (verb + s)</label>
+      <label class="check-item" id="ck5"><input type="checkbox" onchange="checkItem('ck5')"> ✅ I wrote about work AND everyday life</label>
+    </div>
+  </div>
+
+  <div class="hw-end">
+    <h2>Well done! <span>See you next week!</span> ✈</h2>
+    <p>Bring your free writing sentences to Monday's lesson — we'll read them aloud together and celebrate your progress. Every sentence matters. Keep going! 💪</p>
+  </div>
+
+</div>
+
+<script>
+// ---- HW1 GAP FILL ----
+function checkHW1() {
+  let correct = 0;
+  for (let i = 1; i <= 10; i++) {
+    const inp = document.getElementById('h' + i);
+    const val = inp.value.trim().toLowerCase();
+    const ans = inp.dataset.answer;
+    if (val === ans) { inp.classList.add('correct'); inp.classList.remove('wrong'); correct++; }
+    else { inp.classList.add('wrong'); inp.classList.remove('correct'); }
+  }
+  const s = document.getElementById('hw1Score');
+  s.classList.add('show');
+  const emoji = correct >= 8 ? '🌟' : correct >= 5 ? '👍' : '💪';
+  s.innerHTML = `<div class="score-num">${correct}/10</div><div class="score-label">${emoji} ${correct >= 8 ? 'Excellent!' : correct >= 5 ? 'Good work!' : 'Keep practising!'}</div>`;
+}
+
+function resetHW1() {
+  for (let i = 1; i <= 10; i++) {
+    const inp = document.getElementById('h' + i);
+    inp.value = ''; inp.classList.remove('correct','wrong');
+  }
+  document.getElementById('hw1Score').classList.remove('show');
+}
+
+// ---- HW2 ERROR CORRECTION ----
+const err_answers = {
+  err1: 'she works in the maintenance department',
+  err2: 'do they check the engines every week',
+  err3: 'i usually drive to work',
+  err4: "he doesn't go to the office on fridays",
+  err5: 'what time do you start work',
+  err6: 'every morning the captain goes to the hangar'
+};
+
+const err_display = [
+  'She works in the maintenance department.',
+  'Do they check the engines every week?',
+  'I usually drive to work.',
+  "He doesn't go to the office on Fridays.",
+  'What time do you start work?',
+  'Every morning the captain goes to the hangar.'
+];
+
+function checkHW2() {
+  let correct = 0;
+  for (let i = 1; i <= 6; i++) {
+    const inp = document.getElementById('err' + i);
+    const val = inp.value.trim().toLowerCase().replace(/[.?!]/g,'');
+    const ans = err_answers['err' + i].replace(/[.?!]/g,'');
+    if (val === ans) { inp.classList.add('correct'); correct++; }
+  }
+  const s = document.getElementById('hw2Score');
+  s.classList.add('show');
+  s.innerHTML = `<div class="score-num">${correct}/6</div><div class="score-label">${correct >= 5 ? '🌟 Excellent!' : correct >= 3 ? '👍 Good!' : '💪 Keep going!'}</div>`;
+}
+
+function revealHW2() {
+  err_display.forEach((ans, i) => {
+    const inp = document.getElementById('err' + (i+1));
+    if (!inp.classList.contains('correct')) {
+      inp.value = ans; inp.classList.add('correct');
+    }
+  });
+  const s = document.getElementById('hw2Score');
+  s.classList.add('show');
+  s.innerHTML = `<div class="score-num">✓</div><div class="score-label">Answers revealed — study them carefully!</div>`;
+}
+
+// ---- HW JUMBLES ----
+const hwState = {};
+
+function hwPlace(chip, areaId) {
+  if (chip.classList.contains('used')) return;
+  chip.classList.add('used');
+  if (!hwState[areaId]) hwState[areaId] = [];
+  hwState[areaId].push(chip.textContent);
+  hwRenderArea(areaId);
+}
+
+function hwRenderArea(areaId) {
+  const area = document.getElementById(areaId);
+  area.innerHTML = '';
+  (hwState[areaId] || []).forEach((word, i) => {
+    const span = document.createElement('span');
+    span.className = 'placed-chip';
+    span.textContent = word;
+    span.onclick = () => hwRemove(areaId, i, word);
+    area.appendChild(span);
+  });
+}
+
+function hwRemove(areaId, idx, word) {
+  hwState[areaId].splice(idx, 1);
+  hwRenderArea(areaId);
+  const num = areaId.replace('hwa','');
+  const chips = document.querySelectorAll(`#hwc${num} .chip`);
+  for (const c of chips) {
+    if (c.textContent === word && c.classList.contains('used')) { c.classList.remove('used'); break; }
+  }
+}
+
+function checkHWJ(areaId, correct, fbId, revId) {
+  const answer = (hwState[areaId] || []).join(' ').toLowerCase().replace(/[?!.]/g,'').trim();
+  const clean = correct.toLowerCase().replace(/[?!.]/g,'').trim();
+  const area = document.getElementById(areaId);
+  const fb = document.getElementById(fbId);
+  const rev = document.getElementById(revId);
+  fb.classList.add('show');
+  if (answer === clean) {
+    area.classList.add('correct'); area.classList.remove('wrong');
+    fb.className = 'feedback-msg show ok'; fb.textContent = '✓ Perfect! Great job!';
+  } else {
+    area.classList.add('wrong'); area.classList.remove('correct');
+    fb.className = 'feedback-msg show no'; fb.textContent = '✗ Not quite. Check the word order — or tap Show Answer.';
+    rev.classList.add('show');
+  }
+}
+
+function resetHWJ(areaId, chipsId, fbId, revId) {
+  hwState[areaId] = [];
+  const area = document.getElementById(areaId);
+  area.innerHTML = ''; area.classList.remove('correct','wrong');
+  document.querySelectorAll('#' + chipsId + ' .chip').forEach(c => c.classList.remove('used'));
+  document.getElementById(fbId).classList.remove('show');
+  document.getElementById(revId).classList.remove('show');
+}
+
+// ---- CHECKLIST ----
+function checkItem(id) {
+  const label = document.getElementById(id);
+  const checked = label.querySelector('input').checked;
+  if (checked) label.classList.add('checked');
+  else label.classList.remove('checked');
+}
+</script>
+</body>
+</html>
