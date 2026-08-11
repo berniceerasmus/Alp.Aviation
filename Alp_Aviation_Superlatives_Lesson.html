@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superlatives — Alp Aviation Group | Teacher Benny</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0A1930;
+    --navy-mid:#122544;
+    --navy-soft:#1B3055;
+    --sky:#4F8FD1;
+    --sky-soft:#DCEAF9;
+    --amber:#F2A63C;
+    --amber-soft:#FCE7C6;
+    --cloud:#F5F7FA;
+    --steel:#8B96A8;
+    --ink:#16202E;
+    --white:#FFFFFF;
+    --good:#3E8E63;
+    --bad:#C1553D;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--cloud);
+    line-height:1.55;
+    padding-bottom:80px;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif; margin:0;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+
+  /* ===== BOARDING PASS HEADER ===== */
+  .pass{
+    background:linear-gradient(135deg,var(--navy-deep),var(--navy-mid));
+    color:var(--white);
+    margin-bottom:36px;
+    position:relative;
+    overflow:hidden;
+  }
+  .pass-inner{
+    max-width:920px;margin:0 auto;
+    display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:space-between;
+    padding:28px 20px 24px;
+    gap:16px;
+  }
+  .pass-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:2px;color:var(--amber);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  .pass-title{font-size:clamp(24px,4vw,34px);font-weight:700;color:var(--white);}
+  .pass-route{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:15px;color:var(--sky-soft);margin-top:6px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .pass-route .plane{color:var(--amber);}
+  .pass-meta{
+    display:flex;gap:22px;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .pass-meta div{text-align:left;}
+  .pass-meta span{display:block;font-size:10px;letter-spacing:1.5px;color:var(--steel);text-transform:uppercase;}
+  .pass-meta strong{font-size:16px;color:var(--white);font-weight:600;}
+  .perf{
+    height:14px;
+    background-image:radial-gradient(circle, var(--cloud) 5px, transparent 5.5px);
+    background-size:24px 24px;
+    background-position:center;
+    background-color:var(--navy-mid);
+  }
+
+  /* ===== SECTION SHELL ===== */
+  section.block{
+    background:var(--white);
+    border:1px solid #E3E8EF;
+    border-radius:14px;
+    margin-bottom:22px;
+    overflow:hidden;
+  }
+  .block-head{
+    display:flex;align-items:center;gap:14px;
+    padding:18px 24px;
+    background:var(--navy-soft);
+    color:var(--white);
+  }
+  .block-num{
+    font-family:'IBM Plex Mono',monospace;
+    background:var(--amber);color:var(--navy-deep);
+    font-weight:700;font-size:13px;
+    padding:4px 10px;border-radius:6px;
+  }
+  .block-head h2{font-size:19px;color:var(--white);}
+  .block-time{
+    margin-left:auto;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;color:var(--amber-soft);
+    background:rgba(255,255,255,0.08);
+    padding:5px 12px;border-radius:20px;
+  }
+  .block-body{padding:22px 24px 26px;}
+  .block-body h4{font-size:15px;color:var(--navy-deep);margin-bottom:8px;margin-top:18px;}
+  .block-body h4:first-child{margin-top:0;}
+  .block-body p{margin:0 0 10px;font-size:15px;}
+
+  /* ===== TURKISH NOTE ===== */
+  .tr-note{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--sky-soft);
+    border-left:3px solid var(--sky);
+    padding:8px 12px;border-radius:6px;
+    font-size:13.5px;margin:6px 0;
+  }
+  .tr-note b{color:var(--navy-deep);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;}
+
+  /* ===== GRAMMAR CARDS ===== */
+  .rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+  @media(max-width:640px){.rule-grid{grid-template-columns:1fr;}}
+  .rule-card{
+    border:1px solid #E3E8EF;border-radius:10px;padding:14px 16px;background:var(--cloud);
+  }
+  .rule-card h5{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;
+    color:var(--sky);text-transform:uppercase;margin:0 0 8px;
+  }
+  .rule-card .ex{color:var(--navy-mid);font-weight:600;}
+  .irregular-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;}
+  .irregular-table th{
+    text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;
+    color:var(--steel);text-transform:uppercase;letter-spacing:1px;
+    border-bottom:2px solid var(--navy-soft);padding:6px 8px;
+  }
+  .irregular-table td{padding:7px 8px;border-bottom:1px solid #E3E8EF;}
+
+  /* ===== DEPARTURES BOARD (signature element) ===== */
+  .board{
+    background:var(--navy-deep);
+    border-radius:12px;
+    padding:18px 18px 10px;
+    margin:16px 0 20px;
+    box-shadow:inset 0 0 0 1px #223a63;
+  }
+  .board-title{
+    font-family:'IBM Plex Mono',monospace;color:var(--amber);
+    font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    margin-bottom:10px;padding-left:4px;
+  }
+  table.flap{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;}
+  table.flap th{
+    text-align:left;font-size:11px;color:var(--steel);
+    text-transform:uppercase;letter-spacing:1px;
+    padding:8px 8px;border-bottom:1px solid #223a63;
+  }
+  table.flap td{
+    padding:10px 8px;font-size:14px;color:var(--amber);
+    border-bottom:1px solid #16264a;
+  }
+  table.flap td.cat{color:var(--sky-soft);font-family:'Inter',sans-serif;font-weight:500;}
+  .board-foot{
+    font-size:11.5px;color:var(--steel);font-family:'Inter',sans-serif;
+    padding:8px 4px 4px;font-style:italic;
+  }
+
+  /* ===== GAP EXERCISE ===== */
+  .gap-list{list-style:none;margin:14px 0;padding:0;counter-reset:gap;}
+  .gap-item{
+    counter-increment:gap;
+    display:flex;align-items:flex-start;gap:12px;
+    padding:12px 4px;border-bottom:1px dashed #E3E8EF;
+  }
+  .gap-item::before{
+    content:counter(gap);
+    font-family:'IBM Plex Mono',monospace;font-weight:700;
+    background:var(--sky-soft);color:var(--navy-deep);
+    width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;flex-shrink:0;margin-top:2px;
+  }
+  .gap-sentence{flex:1;font-size:15px;}
+  .gap-sentence .blank{
+    display:inline-block;min-width:110px;border-bottom:2px solid var(--steel);
+    text-align:center;margin:0 2px;
+  }
+  .reveal-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    background:none;border:1px solid var(--sky);color:var(--sky);
+    padding:3px 10px;border-radius:14px;cursor:pointer;flex-shrink:0;
+  }
+  .reveal-btn:hover{background:var(--sky);color:var(--white);}
+  .answer{
+    display:none;font-weight:600;color:var(--good);margin-left:4px;
+  }
+  .answer.show{display:inline;}
+
+  /* ===== SPEAKING / PRODUCTION ===== */
+  .frame-box{
+    background:var(--amber-soft);border-left:3px solid var(--amber);
+    padding:12px 16px;border-radius:8px;margin:10px 0;font-size:14.5px;
+  }
+  .rank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .rank-chip{
+    background:var(--navy-soft);color:var(--white);
+    padding:10px 14px;border-radius:8px;text-align:center;font-weight:600;font-size:14px;
+  }
+
+  /* ===== TEACHER NOTES ===== */
+  .tnote{
+    display:none;
+    background:#FFF7E8;border:1px dashed var(--amber);
+    border-radius:8px;padding:10px 14px;margin:10px 0;
+    font-size:13.5px;color:#6B4A16;
+  }
+  body.show-notes .tnote{display:block;}
+  .tnote b{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;}
+
+  .toggle-btn{
+    position:fixed;bottom:20px;right:20px;
+    background:var(--navy-deep);color:var(--white);
+    border:none;padding:12px 18px;border-radius:30px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,0.25);z-index:100;
+  }
+  .toggle-btn:hover{background:var(--navy-mid);}
+
+  .foot{
+    text-align:center;font-size:12.5px;color:var(--steel);
+    padding:20px 0 0;font-family:'IBM Plex Mono',monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="pass">
+  <div class="pass-inner">
+    <div>
+      <div class="pass-eyebrow">Teacher Benny</div>
+      <h1 class="pass-title">Superlatives</h1>
+      <div class="pass-route"><span class="plane">✈</span> SOUTH AFRICA · TURKEY · BEYOND — Ranking the Best Summer Holidays</div>
+    </div>
+  </div>
+  <div class="perf"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- 1. WARM UP -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">01</span>
+      <h2>Quick Recap Warm-Up</h2>
+      <span class="block-time">5 min</span>
+    </div>
+    <div class="block-body">
+      <p>Fast recap of comparatives from last lesson, then pivot the whole group toward ranking. Ask around the room:</p>
+      <div class="frame-box">
+        "Whose summer holiday was farther from home?" · "Who had a hotter holiday — you or your neighbour?"
+      </div>
+      <p>Then ask the pivot question that sets up today's grammar: <b>"OK — but out of everyone in this room, who went the farthest?"</b> Let students realise a comparative (two people) doesn't work here — we need a new structure for three or more.</p>
+      <div class="tnote">
+        <b>Teacher note</b> — This pivot question is the whole point of the warm-up: it creates a real need for superlatives before you name them. Don't rush past it even if no one answers confidently.
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. GRAMMAR -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">02</span>
+      <h2>Grammar Focus: Superlatives</h2>
+      <span class="block-time">12 min</span>
+    </div>
+    <div class="block-body">
+      <h4>What is a superlative?</h4>
+      <p>Use a superlative when comparing <b>three or more</b> people, places, or things — to say one is "number one" in the group (the biggest, the best, the most expensive).</p>
+      <div class="tr-note"><b>TR</b> Üç veya daha fazla şeyi karşılaştırırken kullanılır — "en" anlamı taşır.</div>
+
+      <div class="rule-grid">
+        <div class="rule-card">
+          <h5>Short adjectives (1 syllable)</h5>
+          <b>the</b> + adjective + <b>-est</b><br>
+          <span class="ex">Turkey was the hottest destination this August.</span>
+        </div>
+        <div class="rule-card">
+          <h5>Long adjectives (2+ syllables)</h5>
+          <b>the most</b> + adjective<br>
+          <span class="ex">Cape Town is the most beautiful city on the trip.</span>
+        </div>
+      </div>
+
+      <h4>Spelling reminders</h4>
+      <p>big → the <b>biggest</b> (double the consonant) &nbsp;·&nbsp; sunny → the <b>sunniest</b> (y → i) &nbsp;·&nbsp; safe → the <b>safest</b> (just add -st)</p>
+
+      <h4>Irregular forms</h4>
+      <table class="irregular-table">
+        <tr><th>Adjective</th><th>Superlative</th></tr>
+        <tr><td>good</td><td>the best</td></tr>
+        <tr><td>bad</td><td>the worst</td></tr>
+        <tr><td>far</td><td>the farthest / the furthest</td></tr>
+      </table>
+
+      <h4>"One of the..." — a natural upgrade</h4>
+      <p>Native-sounding speakers often soften a superlative with <b>one of the</b> + superlative + <b>plural noun</b>, especially when they don't want to sound too absolute.</p>
+      <div class="rule-card" style="margin-top:8px;">
+        <span class="ex">Bodrum is one of the most popular beach towns in Turkey.</span><br>
+        <span class="ex">Kruger is one of the best safari parks in the world.</span>
+      </div>
+      <div class="tr-note"><b>TR</b> "One of the..." yapısı — "...lerden biri" anlamına gelir, kesinlik biraz yumuşatılır.</div>
+
+      <div class="tnote">
+        <b>Teacher note</b> — Elicit first: "What's the superlative of hot?" before giving the rule. Flag that superlatives almost always need "the" — a very common omission error at this level. Keep this stage tight; the board activity is where real practice happens.
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GUIDED PRACTICE - DEPARTURES BOARD -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">03</span>
+      <h2>Guided Practice: The Departures Board</h2>
+      <span class="block-time">10 min</span>
+    </div>
+    <div class="block-body">
+      <p>Superlatives need three or more items to compare — so today's board adds a third destination. Project or print the board below as shared "data" for the sentences that follow.</p>
+
+      <div class="board">
+        <div class="board-title">✈ TOP SUMMER DESTINATIONS BOARD</div>
+        <table class="flap">
+          <tr><th>Category</th><th>Turkey</th><th>South Africa</th><th>Spain</th></tr>
+          <tr><td class="cat">Flight time from Istanbul</td><td>—</td><td>≈ 10–12 hrs</td><td>≈ 4 hrs</td></tr>
+          <tr><td class="cat">Typical August weather</td><td>Hot / dry</td><td>Cool / winter season</td><td>Hot / dry</td></tr>
+          <tr><td class="cat">General cost level</td><td>Lower</td><td>Higher</td><td>Mid-range</td></tr>
+          <tr><td class="cat">Crowds in August</td><td>Very crowded</td><td>Quieter</td><td>Crowded</td></tr>
+          <tr><td class="cat">Popular activity</td><td>Beaches &amp; sea</td><td>Safari &amp; wildlife</td><td>City breaks &amp; beaches</td></tr>
+        </table>
+        <div class="board-foot">Note: general seasonal patterns — South Africa's winter falls during the Turkish summer.</div>
+      </div>
+
+      <p>Students complete the sentences using the board and the correct superlative form. Click <b>Show</b> to reveal an answer during class.</p>
+
+      <ul class="gap-list">
+        <li class="gap-item">
+          <span class="gap-sentence">Of the three, South Africa is <span class="blank">___</span> (far) destination from Istanbul. <span class="answer" id="a1">the farthest</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a1').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">Turkey is <span class="blank">___</span> (cheap) of the three destinations for a Turkish traveller. <span class="answer" id="a2">the cheapest</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a2').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">South Africa has <span class="blank">___</span> (good) reputation for wildlife safaris. <span class="answer" id="a3">the best</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a3').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">Turkey is <span class="blank">___</span> (crowded) destination in August out of all three. <span class="answer" id="a4">the most crowded</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a4').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">Spain is <span class="blank">___</span> (close) destination to Turkey by flight time. <span class="answer" id="a5">the closest</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a5').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">Many travellers say Cape Town is one of <span class="blank">___</span> (beautiful) cities in the world. <span class="answer" id="a6">the most beautiful</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a6').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">Out of the three, August tourism to South Africa is <span class="blank">___</span> (bad) fit — it's winter there. <span class="answer" id="a7">the worst</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a7').classList.toggle('show')">Show</button>
+        </li>
+        <li class="gap-item">
+          <span class="gap-sentence">For a quick weekend trip, Spain is <span class="blank">___</span> (convenient) option for Alp Aviation staff. <span class="answer" id="a8">the most convenient</span></span>
+          <button class="reveal-btn" onclick="document.getElementById('a8').classList.toggle('show')">Show</button>
+        </li>
+      </ul>
+
+      <div class="tnote">
+        <b>Teacher note</b> — Do items 1–3 together as a class, then let students try 4–8 in pairs before revealing. Watch for missing "the" (a very common error: "South Africa is farthest" instead of "the farthest") and for "goodest/bestest" style over-regularisation.
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SPEAKING PRODUCTION -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">04</span>
+      <h2>Speaking: Which Holiday Wins?</h2>
+      <span class="block-time">10 min</span>
+    </div>
+    <div class="block-body">
+      <p>In groups of 2–3, students rank the categories below for South Africa vs. Turkey as a summer holiday, then defend their ranking using comparative and superlative sentences.</p>
+
+      <div class="rank-grid">
+        <div class="rank-chip">Beaches</div>
+        <div class="rank-chip">Food</div>
+        <div class="rank-chip">Nightlife</div>
+        <div class="rank-chip">Safety</div>
+        <div class="rank-chip">Value for money</div>
+        <div class="rank-chip">Nature &amp; wildlife</div>
+      </div>
+
+      <div class="frame-box">
+        Sentence starters: "I think ___ is more ___ than ___ because..." &nbsp;·&nbsp; "In my opinion, ___ has the most/best ___..." &nbsp;·&nbsp; "For me, the biggest difference is..."
+      </div>
+
+      <p>Bring the class back together: each group shares one comparative and one superlative sentence about their ranking.</p>
+
+      <div class="tnote">
+        <b>Teacher note</b> — Push stronger students for opinion language ("I'd argue that...", "Honestly, I think..."). For a quieter group, assign each pair one category instead of all six.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WRAP UP -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">05</span>
+      <h2>Wrap-Up: Exit Ticket</h2>
+      <span class="block-time">3 min</span>
+    </div>
+    <div class="block-body">
+      <p>Go around the group — each student says <b>one superlative sentence</b> about their own summer, real or imaginary.</p>
+      <div class="frame-box">Example: "The best part of my holiday was the food in Bodrum."</div>
+      <p>Close by naming the two structures one more time: <b>comparative</b> (-er / more... than) for two things, <b>superlative</b> (the -est / the most) for three or more.</p>
+      <div class="tr-note"><b>TR</b> Kısa özet: iki şeyi karşılaştırırken "daha", en üstünü söylerken "en" kullanılır.</div>
+      <div class="tnote">
+        <b>Teacher note</b> — If time allows, preview next lesson: superlatives with "one of the..." (e.g., "one of the most beautiful beaches"), which this group will need for more natural business travel talk.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<button class="toggle-btn" onclick="document.body.classList.toggle('show-notes')">👁️ Teacher Notes</button>
+
+<div class="foot">Teacher Benny</div>
+
+</body>
+</html>
